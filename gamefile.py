@@ -6,11 +6,11 @@ pygame.init()
 pygame.mixer.music.load('GameMusic.mp3')
 pygame.mixer.music.play(-1)
 
-background_colour = (120,10,255)
+background_colour = (0,10,0)
 (width, height) = (300, 200)
 
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption('Tutorial 1')
+pygame.display.set_caption('Escape from: UNEMPLOYMENT')
 screen.fill(background_colour)
 
 pygame.display.flip()
