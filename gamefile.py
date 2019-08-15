@@ -31,54 +31,61 @@ def game_intro():
                 pygame.quit()
                 quit()
         mouse = pygame.mouse.get_pos()
-        background_image = pygame.image.load("BackgroundIntro.png")
+        print(mouse)
+        background_image = pygame.image.load("StartBackground.png")
         gameDisplay.blit(background_image, [0, 0])
 
         largeText = pygame.font.SysFont("DisposableDroidBB copy.ttf", 50)
-        mediumText = pygame.font.SysFont("DisposableDroidBB copy.ttf", 40)
+        mediumText = pygame.font.SysFont("DisposableDroidBB copy.ttf", 35)
         startText = pygame.font.SysFont("DisposableDroidBB copy.ttf", 75)
+        unimployedText = pygame.font.SysFont("DisposableDroidBB copy.ttf", 70)
 
-        TextSurf, TextRect = text_objects('Escape from Unemployment', largeText)
-        TextRect.center = ((350),(120))
+        TextSurf, TextRect = text_objects('ESCAPE FROM', largeText)
+        TextRect.center = ((350),(35))
+        gameDisplay.blit(TextSurf, TextRect)
+        pygame.display.update()
+
+        TextSurf, TextRect = text_objects('UNEMPLOYMENT', unimployedText)
+        TextRect.center = ((345),(180))
         gameDisplay.blit(TextSurf, TextRect)
         pygame.display.update()
 
 #start button
-        if 260+180 > mouse [0] > 260 and 150+90 > mouse [1] > 150:
-            pygame.draw.rect(gameDisplay, red, [260, 150, 180,90], 5)
+        if 260+180 > mouse [0] > 260 and 305+60 > mouse [1] > 305:
+            pygame.draw.rect(gameDisplay, red, [260, 305, 180,60], 5)
             TextSurf, TextRect = textStartcolor('START', startText)
-            TextRect.center = ((350),(200))
+            TextRect.center = ((350),(335))
             gameDisplay.blit(TextSurf, TextRect)
             pygame.display.update()
 
         else:
-            pygame.draw.rect(gameDisplay, white, [260, 150, 180,90], 5)
+            pygame.draw.rect(gameDisplay, white, [260, 305, 180,60], 5)
             TextSurf, TextRect = text_objects('START', startText)
-            TextRect.center = ((350),(200))
+            TextRect.center = ((350),(335))
             gameDisplay.blit(TextSurf, TextRect)
             pygame.display.update()
 
 #about button
-        if 550+20 > mouse [0] > 550 and 320+90 > mouse [1] > 320:
-            TextSurf, TextRect = text_objects('About', mediumText)
-            TextRect.center = ((550),(320))
+        if 530+190 > mouse [0] > 530 and 320+90 > mouse [1] > 320:
+            TextSurf, TextRect = textStartcolor('About', mediumText)
+            TextRect.center = ((575),(335))
             gameDisplay.blit(TextSurf, TextRect)
             pygame.display.update()
         else:
-            TextSurf, TextRect = textStartcolor('About', mediumText)
-            TextRect.center = ((550),(320))
+            TextSurf, TextRect = text_objects('About', mediumText)
+            TextRect.center = ((575),(335))
             gameDisplay.blit(TextSurf, TextRect)
             pygame.display.update()
 
 #Instructions Button
-        if 150+20 > mouse [0] > 150 and 320+90 > mouse [1] > 320:
-            TextSurf, TextRect = text_objects('Instructions', mediumText)
-            TextRect.center = ((150),(320))
+        if 25+190 > mouse [0] > 25 and 310+90 > mouse [1] > 310:
+            TextSurf, TextRect = textStartcolor('Instructions', mediumText)
+            TextRect.center = ((125),(335))
             gameDisplay.blit(TextSurf, TextRect)
             pygame.display.update()
         else:
-            TextSurf, TextRect = textStartcolor('Instructions', mediumText)
-            TextRect.center = ((150),(320))
+            TextSurf, TextRect = text_objects('Instructions', mediumText)
+            TextRect.center = ((125),(335))
             gameDisplay.blit(TextSurf, TextRect)
             pygame.display.update()
 game_intro ()
