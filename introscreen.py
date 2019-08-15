@@ -9,8 +9,8 @@ white = (255, 255, 255)
 red = (255,0,0)
 
 #music
-#pygame.mixer.music.load('GameMusic.mp3')
-#pygame.mixer.music.play(-1)
+pygame.mixer.music.load('GameMusic.mp3')
+pygame.mixer.music.play(-1)
 
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 
