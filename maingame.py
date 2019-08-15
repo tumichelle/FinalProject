@@ -8,7 +8,7 @@ pygame.init()
 
 W, H = 700, 391
 win = pygame.display.set_mode((W,H))
-pygame.display.set_caption('Side Scroller')
+pygame.display.set_caption('Escape from Unemployment')
 
 bg = pygame.image.load('pixil-frame-0.png').convert()
 bgX = 0
@@ -17,7 +17,7 @@ bgX2 = bg.get_width()
 clock = pygame.time.Clock()
 
 class player(object):
-    run = [pygame.image.load(os.path.join('images', str(x) + '.png')) for x in range(8,16)]
+    run = [pygame.image.load('RunLeft.png'),pygame.image.load('RunRight.png')]
     jump = [pygame.image.load(os.path.join('images', str(x) + '.png')) for x in range(1,8)]
     slide = [pygame.image.load(os.path.join('images', 'S1.png')),pygame.image.load(os.path.join('images', 'S2.png')),pygame.image.load(os.path.join('images', 'S2.png')),pygame.image.load(os.path.join('images', 'S2.png')), pygame.image.load(os.path.join('images', 'S2.png')),pygame.image.load(os.path.join('images', 'S2.png')), pygame.image.load(os.path.join('images', 'S2.png')), pygame.image.load(os.path.join('images', 'S2.png')), pygame.image.load(os.path.join('images', 'S3.png')), pygame.image.load(os.path.join('images', 'S4.png')), pygame.image.load(os.path.join('images', 'S5.png'))]
     jumpList = [1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4]
