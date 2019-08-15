@@ -55,7 +55,7 @@ TextRect.center = ((350),(200))
 gameDisplay.blit(TextSurf, TextRect)
 pygame.display.update()
 
-pygame.draw.rect(gameDisplay, red,(550,450,100,50))
+pygame.draw.rect(gameDisplay,red,(100,100,100,100))
 pygame.display.update()
 
 game_intro ()

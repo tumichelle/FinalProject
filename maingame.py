@@ -17,9 +17,10 @@ bgX2 = bg.get_width()
 clock = pygame.time.Clock()
 
 class player(object):
-    run = [pygame.image.load('RunLeft.png'),pygame.image.load('RunRight.png')]
-    jump = [pygame.image.load('')]
-    slide = [pygame.image.load('')]
+    run = [pygame.image.load(os.path.join('Artwork','RunLeft.png')),
+            pygame.image.load(os.path.join('Artwork','RunRight.png'))]
+    jump = [pygame.image.load(os.path.join('Artwork','Jump.png'))]
+    slide = [pygame.image.load(os.path.join('Artwork',''))]
     jumpList = [1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,
                 4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                 0,0,0,-1,-1,-1,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-3,
