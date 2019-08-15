@@ -6,11 +6,11 @@ import math
 
 pygame.init()
 
-W, H = 800, 447
+W, H = 700, 391
 win = pygame.display.set_mode((W,H))
 pygame.display.set_caption('Side Scroller')
 
-bg = pygame.image.load(os.path.join('images','bg.png')).convert()
+bg = pygame.image.load('pixil-frame-0.png').convert()
 bgX = 0
 bgX2 = bg.get_width()
 
