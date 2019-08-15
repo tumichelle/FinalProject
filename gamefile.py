@@ -18,7 +18,7 @@ def text_objects(text, font):
     textSurface = font.render(text, True,white )
     return textSurface, textSurface.get_rect()
 def textStartcolor(text, font):
-    textStart = font.render(text, True, red )
+    textStart = font.render(text, True, white )
     return textStart, textStart.get_rect()
 
 def game_intro():
@@ -55,7 +55,6 @@ TextRect.center = ((350),(200))
 gameDisplay.blit(TextSurf, TextRect)
 pygame.display.update()
 
-pygame.draw.rect(gameDisplay, white, [260, 150, 180,90], 5)
-pygame.display.update()
+
 
 game_intro ()

@@ -20,7 +20,7 @@ class player(object):
     run = [pygame.image.load(os.path.join('Artwork','RunLeft.png')),
             pygame.image.load(os.path.join('Artwork','RunRight.png'))]
     jump = [pygame.image.load(os.path.join('Artwork','Jump.png'))]
-    slide = [pygame.image.load(os.path.join('Artwork',''))]
+    slide = [pygame.image.load(os.path.join('Artwork','Slide.png'))]
     jumpList = [1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,
                 4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                 0,0,0,-1,-1,-1,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-3,
@@ -66,3 +66,32 @@ class player(object):
                 self.runCount = 0
             win.blit(self.run[self.runCount//6], (self.x,self.y))
             self.runCount += 1
+
+def redrawWindow():
+    win.blit(bg, (bgX, 0))
+    win.blit(bg, (bgX2,0))
+    runner.draw(win)
+    pygame.display.update()
+
+runner = player(345, 331, 10, 17)
+pygame.time.set_timer(USEREVENT+1, 500)
+speed = 30
+run = True
+while run:
+    redrawWindow()
+    bgX -= 1.4
+    bgX2 -= 1.4
+    if bgX < bg.get_width() * -1:
+        bgX = bg.get_width()
+    if bgX2 < bg.get_width() * -1:
+        bgX2 = bg.get_width()
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+            pygame.quit()
+            quit()
+        if event.type == USEREVENT+1:
+            speed += 1
+
+    clock.tick(speed)
