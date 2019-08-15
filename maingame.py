@@ -62,7 +62,7 @@ class player(object):
             self.slideCount += 1
 
         else:
-            if self.runCount > 42:
+            if self.runCount > 6:
                 self.runCount = 0
             win.blit(self.run[self.runCount//6], (self.x,self.y))
             self.runCount += 1
