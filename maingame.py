@@ -75,9 +75,9 @@ def redrawWindow():
     runner.draw(win)
     pygame.display.update()
 
-runner = player(150, 150, 10, 17)
+runner = player(200, 170, 10, 17)
 pygame.time.set_timer(USEREVENT+1, 500)
-speed = 6
+speed = 600
 run = True
 while run:
     redrawWindow()
