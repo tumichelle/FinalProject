@@ -1,97 +1,91 @@
 import pygame
-from pygame.locals import *
-import os
-import sys
-import math
 
 pygame.init()
 
-W, H = 700, 391
-win = pygame.display.set_mode((W,H))
-pygame.display.set_caption('Escape from Unemployment')
+display_width = 700
+display_height = 391
+black = (0,0,0)
+white = (255, 255, 255)
+red = (255,0,0)
 
-bg = pygame.image.load('pixil-frame-0.png').convert()
-bgX = 0
-bgX2 = bg.get_width()
+#music
+#pygame.mixer.music.load('GameMusic.mp3')
+#pygame.mixer.music.play(-1)
 
-clock = pygame.time.Clock()
+gameDisplay = pygame.display.set_mode((display_width,display_height))
 
-class player(object):
-    run = [pygame.image.load(os.path.join('Artwork','RunLeft.png')),
-            pygame.image.load(os.path.join('Artwork','RunRight.png'))]
-    jump = [pygame.image.load(os.path.join('Artwork','Jump.png'))]
-    slide = [pygame.image.load(os.path.join('Artwork','Slide.png'))]
-    jumpList = [1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,
-                4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                0,0,0,-1,-1,-1,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-3,
-                -3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
-                -4,-4]
-    def __init__(self, x, y, width, height):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.jumping = False
-        self.sliding = False
-        self.slideCount = 0
-        self.jumpCount = 0
-        self.runCount = 0
-        self.slideUp = False
+def text_objects(text, font):
+    textSurface = font.render(text, True,white )
+    return textSurface, textSurface.get_rect()
+def textStartcolor(text, font):
+    textStart = font.render(text, True, red )
+    return textStart, textStart.get_rect()
 
-    def draw(self, win):
-        if self.jumping:
-            self.y -= self.jumpList[self.jumpCount] * 1.2
-            win.blit(self.jump[self.jumpCount//18], (self.x,self.y))
-            self.jumpCount += 1
-            if self.jumpCount > 108:
-                self.jumpCount = 0
-                self.jumping = False
-                self.runCount = 0
-        elif self.sliding or self.slideUp:
-            if self.slideCount < 20:
-                self.y += 1
-            elif self.slideCount == 80:
-                self.y -= 19
-                self.sliding = False
-                self.slideUp = True
-            if self.slideCount >= 110:
-                self.slideCount = 0
-                self.slideUp = False
-                self.runCount = 0
-            win.blit(self.slide[self.slideCount//10], (self.x,self.y))
-            self.slideCount += 1
+def game_intro():
+    intro = True
+
+
+    while intro:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+        mouse = pygame.mouse.get_pos()
+        print(mouse)
+        background_image = pygame.image.load("StartBackground.png")
+        gameDisplay.blit(background_image, [0, 0])
+
+        largeText = pygame.font.SysFont("DisposableDroidBB copy.ttf", 50)
+        mediumText = pygame.font.SysFont("DisposableDroidBB copy.ttf", 35)
+        startText = pygame.font.SysFont("DisposableDroidBB copy.ttf", 75)
+        unimployedText = pygame.font.SysFont("DisposableDroidBB copy.ttf", 70)
+
+        TextSurf, TextRect = text_objects('ESCAPE FROM', largeText)
+        TextRect.center = ((350),(35))
+        gameDisplay.blit(TextSurf, TextRect)
+        pygame.display.update()
+
+        TextSurf, TextRect = text_objects('UNEMPLOYMENT', unimployedText)
+        TextRect.center = ((345),(180))
+        gameDisplay.blit(TextSurf, TextRect)
+        pygame.display.update()
+
+#start button
+        if 260+180 > mouse [0] > 260 and 305+60 > mouse [1] > 305:
+            pygame.draw.rect(gameDisplay, red, [260, 305, 180,60], 5)
+            TextSurf, TextRect = textStartcolor('START', startText)
+            TextRect.center = ((350),(335))
+            gameDisplay.blit(TextSurf, TextRect)
+            pygame.display.update()
 
         else:
-            if self.runCount > 6:
-                self.runCount = 0
-            win.blit(self.run[self.runCount//6], (self.x,self.y))
-            self.runCount += 1
+            pygame.draw.rect(gameDisplay, white, [260, 305, 180,60], 5)
+            TextSurf, TextRect = text_objects('START', startText)
+            TextRect.center = ((350),(335))
+            gameDisplay.blit(TextSurf, TextRect)
+            pygame.display.update()
 
-def redrawWindow():
-    win.blit(bg, (bgX, 0))
-    win.blit(bg, (bgX2,0))
-    runner.draw(win)
-    pygame.display.update()
+#about button
+        if 530+190 > mouse [0] > 530 and 320+90 > mouse [1] > 320:
+            TextSurf, TextRect = textStartcolor('About', mediumText)
+            TextRect.center = ((575),(335))
+            gameDisplay.blit(TextSurf, TextRect)
+            pygame.display.update()
+        else:
+            TextSurf, TextRect = text_objects('About', mediumText)
+            TextRect.center = ((575),(335))
+            gameDisplay.blit(TextSurf, TextRect)
+            pygame.display.update()
 
-runner = player(345, 331, 10, 17)
-pygame.time.set_timer(USEREVENT+1, 500)
-speed = 30
-run = True
-while run:
-    redrawWindow()
-    bgX -= 1.4
-    bgX2 -= 1.4
-    if bgX < bg.get_width() * -1:
-        bgX = bg.get_width()
-    if bgX2 < bg.get_width() * -1:
-        bgX2 = bg.get_width()
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-            pygame.quit()
-            quit()
-        if event.type == USEREVENT+1:
-            speed += 1
-
-    clock.tick(speed)
+#Instructions Button
+        if 25+190 > mouse [0] > 25 and 310+90 > mouse [1] > 310:
+            TextSurf, TextRect = textStartcolor('Instructions', mediumText)
+            TextRect.center = ((125),(335))
+            gameDisplay.blit(TextSurf, TextRect)
+            pygame.display.update()
+        else:
+            TextSurf, TextRect = text_objects('Instructions', mediumText)
+            TextRect.center = ((125),(335))
+            gameDisplay.blit(TextSurf, TextRect)
+            pygame.display.update()
+game_intro ()
