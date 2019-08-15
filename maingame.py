@@ -3,6 +3,7 @@ from pygame.locals import *
 import os
 import sys
 import math
+import time
 
 pygame.init()
 
@@ -62,10 +63,11 @@ class player(object):
             self.slideCount += 1
 
         else:
-            if self.runCount > 6:
-                self.runCount = 0
-            win.blit(self.run[self.runCount//6], (self.x,self.y))
+            if self.runCount > 2:
+                self.runCount = 1
+            win.blit(self.run[self.runCount//2], (self.x,self.y))
             self.runCount += 1
+            time.sleep(0.1)
 
 def redrawWindow():
     win.blit(bg, (bgX, 0))
@@ -73,9 +75,9 @@ def redrawWindow():
     runner.draw(win)
     pygame.display.update()
 
-runner = player(345, 331, 10, 17)
+runner = player(150, 150, 10, 17)
 pygame.time.set_timer(USEREVENT+1, 500)
-speed = 30
+speed = 6
 run = True
 while run:
     redrawWindow()
