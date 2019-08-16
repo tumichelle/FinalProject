@@ -16,6 +16,7 @@ largeText = pygame.font.SysFont("DisposableDroidBB.ttf", 50)
 mediumText = pygame.font.SysFont("DisposableDroidBB.ttf", 35)
 startText = pygame.font.SysFont("DisposableDroidBB.ttf", 75)
 unimployedText = pygame.font.SysFont("DisposableDroidBB.ttf", 70)
+smallText = pygame.font.SysFont("DisposableDroidBB.ttf", 20)
 
 mouse = pygame.mouse.get_pos()
 
@@ -30,6 +31,8 @@ def textStartcolor(text, font):
     textStart = font.render(text, True, red)
     return textStart, textStart.get_rect()
 
+
+'''
 def button (msg,x,y,w,h, action = None):
     click = pygame.mouse.get_pressed()
     print (click)
@@ -47,6 +50,7 @@ def button (msg,x,y,w,h, action = None):
             TextRect.center = ((x),(y))
             gameDisplay.blit(TextSurf, TextRect)
             pygame.display.update()
+'''
 
 
 def game_intro():
@@ -84,8 +88,45 @@ def game_intro():
             gameDisplay.blit(TextSurf, TextRect)
             pygame.display.update()
 
+        #about button
+        if 530+190 > mouse [0] > 530 and 320+90 > mouse [1] > 320:
+            TextSurf, TextRect = textStartcolor('About', mediumText)
+            TextRect.center = ((575),(335))
+            gameDisplay.blit(TextSurf, TextRect)
+            pygame.display.update()
+        else:
+            TextSurf, TextRect = text_objects('About', mediumText)
+            TextRect.center = ((575),(335))
+            gameDisplay.blit(TextSurf, TextRect)
+            pygame.display.update()
+
+#Instructions Button
+        if 25+190 > mouse [0] > 25 and 310+90 > mouse [1] > 310:
+            TextSurf, TextRect = textStartcolor('Instructions', mediumText)
+            TextRect.center = ((125),(335))
+            gameDisplay.blit(TextSurf, TextRect)
+            pygame.display.update()
+            if pygame.mouse.get_pressed()[0]:
+                background_image = pygame.image.load("instruction.png")
+                gameDisplay.blit(background_image, [0, 0])
+                TextSurf, TextRect = text_objects('Instructions', largeText)
+                TextRect.center = ((350),(35))
+                gameDisplay.blit(TextSurf, TextRect)
+                TextSurf, TextRect = text_objects('Your objective is to get the job.', smallText)
+                TextRect.center = ((220),(80))
+                gameDisplay.blit(TextSurf, TextRect)
+                TextSurf, TextRect = text_objects('Use the arrow keys to jump or slide to avoid obstacles.', smallText)
+                TextRect.center = ((320),(140))
+                gameDisplay.blit(TextSurf, TextRect)
+                TextSurf, TextRect = text_objects('Good Luck!', mediumText)
+                TextRect.center = ((160),(200))
+                gameDisplay.blit(TextSurf, TextRect)
+                pygame.display.update()
+        else:
+            TextSurf, TextRect = text_objects('Instructions', mediumText)
+            TextRect.center = ((125),(335))
+            gameDisplay.blit(TextSurf, TextRect)
+            pygame.display.update()
+
 
 game_intro()
-while True:
-    button('Instructions',125,330,190,90)
-    button('About',550,330,190,90)
