@@ -12,10 +12,10 @@ red = (255,0,0)
 pygame.mixer.music.load('GameMusic.mp3')
 pygame.mixer.music.play(-1)
 
-largeText = pygame.font.SysFont("DisposableDroidBB copy.ttf", 50)
-mediumText = pygame.font.SysFont("DisposableDroidBB copy.ttf", 35)
-startText = pygame.font.SysFont("DisposableDroidBB copy.ttf", 75)
-unimployedText = pygame.font.SysFont("DisposableDroidBB copy.ttf", 70)
+largeText = pygame.font.SysFont("DisposableDroidBB.ttf", 50)
+mediumText = pygame.font.SysFont("DisposableDroidBB.ttf", 35)
+startText = pygame.font.SysFont("DisposableDroidBB.ttf", 75)
+unimployedText = pygame.font.SysFont("DisposableDroidBB.ttf", 70)
 
 mouse = pygame.mouse.get_pos()
 
@@ -29,11 +29,11 @@ def text_objects(text, font):
 def textStartcolor(text, font):
     textStart = font.render(text, True, red)
     return textStart, textStart.get_rect()
-    
+
 def button (msg,x,y,w,h, action = None):
     click = pygame.mouse.get_pressed()
     print (click)
-    while action== None:
+    while action == None:
         if x+w > mouse [0] > x and y+h > mouse [1] > y:
             TextSurf, TextRect = textStartcolor(msg, mediumText)
             TextRect.center = ((x),(y))
@@ -41,7 +41,7 @@ def button (msg,x,y,w,h, action = None):
             pygame.display.update()
 
             if click[0] == 1 and action != None:
-                action() 
+                action()
         else:
             TextSurf, TextRect = text_objects(msg, mediumText)
             TextRect.center = ((x),(y))
@@ -51,7 +51,6 @@ def button (msg,x,y,w,h, action = None):
 
 def game_intro():
     intro = True
-
     while intro:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -70,8 +69,6 @@ def game_intro():
         TextRect.center = ((345),(180))
         gameDisplay.blit(TextSurf, TextRect)
         pygame.display.update()
-        button("Instructions",125,330,190,90)
-        button("About",550,330,190,90)
 #start button
         if 260+180 > mouse [0] > 260 and 305+60 > mouse [1] > 305:
             pygame.draw.rect(gameDisplay, red, [260, 305, 180, 60], 5)
@@ -89,4 +86,6 @@ def game_intro():
 
 
 game_intro()
-
+while True:
+    button('Instructions',125,330,190,90)
+    button('About',550,330,190,90)
