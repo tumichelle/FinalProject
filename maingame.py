@@ -11,7 +11,7 @@ W, H = 700, 391
 win = pygame.display.set_mode((W,H))
 pygame.display.set_caption('Escape from Unemployment')
 
-bg = pygame.image.load('pixil-frame-0.png').convert()
+bg = pygame.image.load('pixil-frame-0-2.png').convert()
 bgX = 0
 bgX2 = bg.get_width()
 
@@ -20,8 +20,8 @@ clock = pygame.time.Clock()
 class player(object):
     run = [pygame.image.load(os.path.join('Artwork','RunLeft.png')),
             pygame.image.load(os.path.join('Artwork','RunRight.png'))]
-    jump = (pygame.image.load(os.path.join('Artwork','Jump.png')))
-    slide = (pygame.image.load(os.path.join('Artwork','Slide.png')))
+    jump = pygame.image.load(os.path.join('Artwork','Jump.png'))
+    slide = pygame.image.load(os.path.join('Artwork','Slide.png'))
     jumpList = [1,1,2,2,2,2,3,3,3,3,4,4,4,4,0,0,0,0,-1,-1,-1,
                 -2,-2,-2,-2,-3,-3,-3,-3,-4,-4,-4,-4,-4]
     def __init__(self, x, y, width, height):
@@ -66,12 +66,38 @@ class player(object):
             self.runCount += 1
             time.sleep(0.1)
 
+class bush(object):
+    img = pygame.image.load('Bush1.png')
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.hitbox = (x,y,width,height)
+
+    def draw(self,win):
+        self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
+        win.blit(self.img, (self.x, self.y))
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+class fire(bush):
+    img = pygame.image.load('FireHydrant.png')
+    def draw(self,win):
+        self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
+        win.blit(self.img, (self.x,self.y))
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+
 def redrawWindow():
     win.blit(bg, (bgX, 0))
     win.blit(bg, (bgX2,0))
     runner.draw(win)
+    firee.draw(win)
+    bushh.draw(win)
     pygame.display.update()
 
+firee = fire(300,0,64,64)
+bushh = bush(300,100,64,64)
 runner = player(200, 170, 10, 17)
 pygame.time.set_timer(USEREVENT+1, 500)
 speed = 30
