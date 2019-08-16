@@ -22,11 +22,8 @@ class player(object):
             pygame.image.load(os.path.join('Artwork','RunRight.png'))]
     jump = (pygame.image.load(os.path.join('Artwork','Jump.png')))
     slide = (pygame.image.load(os.path.join('Artwork','Slide.png')))
-    jumpList = [1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,
-                4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                0,0,0,-1,-1,-1,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-3,
-                -3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
-                -4,-4]
+    jumpList = [1,1,2,2,2,2,3,3,3,3,4,4,4,4,0,0,0,0,-1,-1,-1,
+                -2,-2,-2,-2,-3,-3,-3,-3,-4,-4,-4,-4,-4]
     def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
@@ -44,22 +41,22 @@ class player(object):
             self.y -= self.jumpList[self.jumpCount] * 1.2
             win.blit(self.jump, (self.x,self.y))
             self.jumpCount += 1
-            if self.jumpCount > 108:
+            if self.jumpCount > 32:
                 self.jumpCount = 0
                 self.jumping = False
                 self.runCount = 0
         elif self.sliding or self.slideUp:
-            if self.slideCount < 20:
-                self.y += 1
-            elif self.slideCount == 80:
-                self.y -= 19
+            #if self.slideCount < 20:
+                #self.y += 1
+            if self.slideCount ==25:
+                #self.y -= 19
                 self.sliding = False
-                self.slideUp = True
-            if self.slideCount >= 110:
+                #self.slideUp = True
+            if self.slideCount >= 25:
                 self.slideCount = 0
                 self.slideUp = False
                 self.runCount = 0
-            win.blit(self.slide, (self.x,self.y))
+            win.blit(self.slide, (self.x,(self.y+50)))
             self.slideCount += 1
 
         else:
