@@ -4,6 +4,7 @@ import os
 import sys
 import math
 import time
+import random
 
 pygame.init()
 
@@ -66,8 +67,13 @@ class player(object):
             self.runCount += 1
             time.sleep(0.1)
 
-class bush(object):
-    img = pygame.image.load('Bush1.png')
+class ground(object):
+    img = [pygame.image.load(os.path.join('Artwork','Bush1.png')),
+            pygame.image.load(os.path.join('Artwork','Bush2.png')),
+            pygame.image.load(os.path.join('Artwork','FireHydrant.png')),
+            pygame.image.load(os.path.join('Artwork','TrashCan.png')),
+            pygame.image.load(os.path.join('Artwork','Dog.png'))]
+
     def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
@@ -75,16 +81,19 @@ class bush(object):
         self.height = height
         self.hitbox = (x,y,width,height)
 
-    def draw(self,win):
-        self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
-        win.blit(self.img, (self.x, self.y))
+    def draw(self,win,groundind):
+        win.blit(self.img[groundind], (self.x, self.y))
+        self.hitbox = (self.x+2, self.y, self.width+10, self.height-10)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
-class fire(bush):
-    img = pygame.image.load('FireHydrant.png')
-    def draw(self,win):
+class fly(ground):
+    img = [pygame.image.load(os.path.join('Artwork','Birds1.png')),
+            pygame.image.load(os.path.join('Artwork','Birds2.png')),
+            pygame.image.load(os.path.join('Artwork','Birds3.png'))]
+
+    def draw(self,win,flyind):
+        win.blit(self.img[flyind], (self.x,self.y))
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
-        win.blit(self.img, (self.x,self.y))
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
 
@@ -92,16 +101,27 @@ def redrawWindow():
     win.blit(bg, (bgX, 0))
     win.blit(bg, (bgX2,0))
     runner.draw(win)
-    firee.draw(win)
-    bushh.draw(win)
+    flyy.draw(win,flyind)
+    groundd.draw(win,groundind)
     pygame.display.update()
 
-firee = fire(300,0,64,64)
-bushh = bush(300,100,64,64)
+flyind = random.randint(0,2)
+groundind = 2 #random.randint(0,4)
+flyy = fly(300,0,64,64)
+
+if groundind == 0: #darkbush
+    groundd = ground(300,230,64,64)
+elif groundind == 1: #lightbush
+    groundd = ground(300,230,65,70)
+elif groundind == 2: #firehydrant
+    groundd = ground(300,200,45,90)
+
 runner = player(200, 170, 10, 17)
 pygame.time.set_timer(USEREVENT+1, 500)
 speed = 30
 run = True
+
+
 while run:
     redrawWindow()
     bgX -= 1.4
