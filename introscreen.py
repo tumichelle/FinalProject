@@ -64,12 +64,12 @@ def game_intro():
 
         background_image = pygame.image.load("StartBackground.png")
         gameDisplay.blit(background_image, [0, 0])
-        TextSurf, TextRect = text_objects('ESCAPE FROM', largeText)
+        TextSurf, TextRect = text_objects('RAISING THE', largeText)
         TextRect.center = ((350),(35))
         gameDisplay.blit(TextSurf, TextRect)
         pygame.display.update()
 
-        TextSurf, TextRect = text_objects('UNEMPLOYMENT', unimployedText)
+        TextSurf, TextRect = text_objects('STEAKS', unimployedText)
         TextRect.center = ((345),(180))
         gameDisplay.blit(TextSurf, TextRect)
         pygame.display.update()
