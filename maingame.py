@@ -24,6 +24,7 @@ class player(object):
         pygame.image.load(os.path.join('Artwork','RunRight.png')),]
     jump = pygame.image.load(os.path.join('Artwork','Jump.png'))
     slide = pygame.image.load(os.path.join('Artwork','Slide.png'))
+    fall = pygame.image.load(os.path.join('Artwork','Fall.png'))
     jumpList = [12,12,12,12,12,12,0,0,0,0,0
                 -12,-12,-12,-12,-12,-12]
     def __init__(self, x, y, width, height):
@@ -38,6 +39,7 @@ class player(object):
         self.runCount = 0
         self.slideUp = False
         self.falling = False
+        self.hitbox = (x,y,width,height)
 
     def draw(self, win):
         if self.jumping:
@@ -48,7 +50,7 @@ class player(object):
                 self.jumpCount = 0
                 self.jumping = False
                 self.runCount = 0
-            self.hitbox = (self.x + 4, self.y, self.width-24, self.height-10)
+            self.hitbox = (self.x + 4, self.y, self.width + 10, self.height-20)
         elif self.sliding or self.slideUp:
             #if self.slideCount < 20:
                 #self.y += 1
@@ -57,7 +59,7 @@ class player(object):
                 self.sliding = False
                 #self.slideUp = True
             if self.slideCount < 18:
-                self.hitbox = (self.x, self.y+3, self.width-8, self.height-35)
+                self.hitbox = (self.x, self.y+3,300 , 61)
             if self.slideCount >= 18:
                 self.slideCount = 0
                 self.slideUp = False
@@ -74,8 +76,8 @@ class player(object):
                 self.runCount = 1
             win.blit(self.run[self.runCount//2], (self.x,self.y))
             self.runCount += 1
-            self.hitbox = (self.x+4, self.y, self.width-24, self.height-13)
-
+            self.hitbox = (self.x+6, self.y+10, self.width, self.height)
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
 class bush1(object):
     img = (pygame.image.load(os.path.join('Artwork','Bush1.png')))
@@ -150,7 +152,7 @@ def redrawWindow():
 
 flyind = random.randint(0,2)
 groundind = random.randint(0,3)
-runner = player(200, 160, 10, 17)
+runner = player(200, 160, 63, 111)
 pygame.time.set_timer(USEREVENT+1, 500)
 pygame.time.set_timer(USEREVENT+2, random.randrange(2000,3500)) #can change this to make level harder
 speed = 30
