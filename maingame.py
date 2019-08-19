@@ -12,7 +12,7 @@ W, H = 700, 391
 win = pygame.display.set_mode((W,H))
 pygame.display.set_caption('Escape from Unemployment')
 
-bg = pygame.image.load('pixil-frame-0-3.png').convert()
+bg = pygame.image.load('pixil-frame-0-4.png').convert()
 bgX = 0
 bgX2 = bg.get_width()
 
@@ -75,7 +75,6 @@ class player(object):
 class ground(object):
     img = [pygame.image.load(os.path.join('Artwork','Bush1.png')),
             pygame.image.load(os.path.join('Artwork','Bush2.png')),
-            pygame.image.load(os.path.join('Artwork','FireHydrant.png')),
             pygame.image.load(os.path.join('Artwork','TrashCan.png')),
             pygame.image.load(os.path.join('Artwork','Dog.png'))]
 
@@ -111,17 +110,18 @@ def redrawWindow():
     pygame.display.update()
 
 flyind = random.randint(0,2)
-groundind = random.randint(0,4)
+groundind = random.randint(0,3)
 flyy = fly(300,0,64,64)
 
 if groundind == 0: #darkbush
     groundd = ground(300,230,64,64)
 elif groundind == 1: #lightbush
     groundd = ground(300,242,35,45)
-elif groundind == 2: #firehydrant
-    groundd = ground(300,240,20,52)
-elif groundind == 3: #trash can
-    groundd = ground(300,240,20,52)
+elif groundind == 2: #trash can
+    groundd = ground(300,240,30,50)
+elif groundind == 3: #dog
+    groundd = ground(300,240,30,50)
+
 runner = player(200, 170, 10, 17)
 pygame.time.set_timer(USEREVENT+1, 500)
 speed = 30
