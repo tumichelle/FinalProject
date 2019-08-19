@@ -12,9 +12,14 @@ W, H = 700, 391
 win = pygame.display.set_mode((W,H))
 pygame.display.set_caption('Escape from Unemployment')
 
-bg = pygame.image.load('pixil-frame-0-2.png').convert()
+bg = pygame.image.load('pixil-frame-0-3.png').convert()
 bgX = 0
 bgX2 = bg.get_width()
+
+# def blit_alpha(target,source,location,opacity):
+#     x = location[0]
+#     y = location[1]
+#     temp = pygame.Surface((source.get_width))
 
 clock = pygame.time.Clock()
 
@@ -106,16 +111,17 @@ def redrawWindow():
     pygame.display.update()
 
 flyind = random.randint(0,2)
-groundind = 2 #random.randint(0,4)
+groundind = random.randint(0,4)
 flyy = fly(300,0,64,64)
 
 if groundind == 0: #darkbush
     groundd = ground(300,230,64,64)
 elif groundind == 1: #lightbush
-    groundd = ground(300,230,65,70)
+    groundd = ground(300,242,35,45)
 elif groundind == 2: #firehydrant
-    groundd = ground(300,200,45,90)
-
+    groundd = ground(300,240,20,52)
+elif groundind == 3: #trash can
+    groundd = ground(300,240,20,52)
 runner = player(200, 170, 10, 17)
 pygame.time.set_timer(USEREVENT+1, 500)
 speed = 30
