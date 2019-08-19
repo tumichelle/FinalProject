@@ -89,7 +89,7 @@ def game_intro():
             'rect': pygame.Rect(280, 305, 140, 70),
             'ac': black,
             'ic': blue,
-            'action': about_loop,
+            'action': levels_loop,
         }
     ]
 
@@ -109,10 +109,10 @@ def game_intro():
 
         pygame.display.update()
 
-#instructions page
+#instructions page with back button
 def instructions_loop():
     font = mediumText
-    background_image = pygame.image.load("aboutbackground.png")
+    background_image = pygame.image.load("trippyinstructionsandabout.png")
     game_display.blit(background_image, [0, 0])
 
     buttons = [
@@ -135,10 +135,10 @@ def instructions_loop():
         button_draw(buttons[0])
         pygame.display.update()
 
-#about page
+#about page with back button
 def about_loop():
     font = mediumText
-    background_image = pygame.image.load("aboutbackground.png")
+    background_image = pygame.image.load("trippyinstructionsandabout.png")
     game_display.blit(background_image, [0, 0])
 
     buttons = [
@@ -160,6 +160,59 @@ def about_loop():
 
         button_draw(buttons[0])
         pygame.display.update()
+
+#levels page after pressing start button
+def levels_loop():
+    background_image = pygame.image.load("trippylevelspage.png")
+    game_display.blit(background_image, [0, 0])
+
+    buttons = [
+        {
+            'msg': 'BACK',
+            'rect': pygame.Rect(590, 310, 80, 60),
+            'ac': black,
+            'ic': red,
+            'action': game_intro,
+        },
+        {
+            'msg': 'LEVEL 1',
+            'rect': pygame.Rect(590, 310, 80, 60),
+            'ac': black,
+            'ic': red,
+            'action': game_intro,
+        },
+        {
+            'msg': 'LEVEL 2',
+            'rect': pygame.Rect(590, 310, 80, 60),
+            'ac': black,
+            'ic': red,
+            'action': game_intro,
+        },
+        {
+            'msg': 'LEVEL 3',
+            'rect': pygame.Rect(590, 310, 80, 60),
+            'ac': black,
+            'ic': red,
+            'action': game_intro,
+        }
+    ]
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit_game()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                button_check(buttons[0])
+                button_check(buttons[1])
+                button_check(buttons[2])
+                button_check(buttons[3])
+
+        button_draw(buttons[0])
+        button_draw(buttons[1])
+        button_draw(buttons[2])
+        button_draw(buttons[3])
+        pygame.display.update()
+
 
 # --- main ---
 
