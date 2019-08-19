@@ -21,9 +21,13 @@ smallText = pygame.font.SysFont("DisposableDroidBB.ttf", 20)
 
 mouse = pygame.mouse.get_pos()
 
-def text_objects(text, font):
+def textWhite(text, font):
     textSurface = font.render(text, True, white)
     return textSurface, textSurface.get_rect()
+
+def textRed(text, font):
+    textStart = font.render(text, True, red)
+    return textStart, textStart.get_rect()
 
 #checks if button is clicked, does action
 def button_check(button):
@@ -44,7 +48,7 @@ def button_draw(button):
 
     pygame.draw.rect(game_display, color, button['rect'])
 
-    image, rect = text_objects(button['msg'], font)
+    image, rect = textWhite(button['msg'], font)
     rect.center = button['rect'].center
     game_display.blit(image, rect)
 
@@ -58,12 +62,12 @@ def game_intro():
 
     background_image = pygame.image.load("StartBackground.png")
     game_display.blit(background_image, [0, 0])
-    TextSurf, TextRect = text_objects('RAISING THE', largeText)
+    TextSurf, TextRect = textWhite('RAISING THE', largeText)
     TextRect.center = ((350),(35))
     game_display.blit(TextSurf, TextRect)
     pygame.display.update()
 
-    TextSurf, TextRect = text_objects('STEAKS', unemployedText)
+    TextSurf, TextRect = textWhite('STEAKS', unemployedText)
     TextRect.center = ((345),(180))
     game_display.blit(TextSurf, TextRect)
     pygame.display.update()
@@ -111,14 +115,18 @@ def game_intro():
 
 #instructions page with back button
 def instructions_loop():
-    font = mediumText
-    background_image = pygame.image.load("trippyinstructionsandabout.png")
+    background_image = pygame.image.load("OHMYGODMICHELLEISPICKY.png")
     game_display.blit(background_image, [0, 0])
+
+    TextSurf, TextRect = textWhite('INSTRUCTIONS', largeText)
+    TextRect.center = ((355),(73))
+    game_display.blit(TextSurf, TextRect)
+    pygame.display.update()
 
     buttons = [
         {
             'msg': 'BACK',
-            'rect': pygame.Rect(590, 310, 80, 60),
+            'rect': pygame.Rect(582, 318, 80, 40),
             'ac': black,
             'ic': red,
             'action': game_intro,
@@ -137,14 +145,18 @@ def instructions_loop():
 
 #about page with back button
 def about_loop():
-    font = mediumText
-    background_image = pygame.image.load("trippyinstructionsandabout.png")
+    background_image = pygame.image.load("OHMYGODMICHELLEISPICKY.png")
     game_display.blit(background_image, [0, 0])
+
+    TextSurf, TextRect = textWhite('ABOUT', largeText)
+    TextRect.center = ((350),(73))
+    game_display.blit(TextSurf, TextRect)
+    pygame.display.update()
 
     buttons = [
         {
             'msg': 'BACK',
-            'rect': pygame.Rect(590, 310, 80, 60),
+            'rect': pygame.Rect(582, 318, 80, 40),
             'ac': black,
             'ic': red,
             'action': game_intro,
@@ -163,36 +175,41 @@ def about_loop():
 
 #levels page after pressing start button
 def levels_loop():
-    background_image = pygame.image.load("trippylevelspage.png")
+    background_image = pygame.image.load("michelleiskillingmeSOS.png")
     game_display.blit(background_image, [0, 0])
+
+    TextSurf, TextRect = textWhite('CHOOSE A DIFFICULTY', largeText)
+    TextRect.center = ((355),(73))
+    game_display.blit(TextSurf, TextRect)
+    pygame.display.update()
 
     buttons = [
         {
             'msg': 'BACK',
-            'rect': pygame.Rect(590, 310, 80, 60),
+            'rect': pygame.Rect(582, 318, 80, 40),
             'ac': black,
             'ic': red,
             'action': game_intro,
         },
         {
             'msg': 'LEVEL 1',
-            'rect': pygame.Rect(590, 310, 80, 60),
+            'rect': pygame.Rect(56, 150, 340, 40),
             'ac': black,
-            'ic': red,
+            'ic': (135,206,235),
             'action': game_intro,
         },
         {
             'msg': 'LEVEL 2',
-            'rect': pygame.Rect(590, 310, 80, 60),
+            'rect': pygame.Rect(56, 230, 340, 40),
             'ac': black,
-            'ic': red,
+            'ic': (30,144,255),
             'action': game_intro,
         },
         {
             'msg': 'LEVEL 3',
-            'rect': pygame.Rect(590, 310, 80, 60),
+            'rect': pygame.Rect(56, 310, 340, 40),
             'ac': black,
-            'ic': red,
+            'ic': (0,0,139),
             'action': game_intro,
         }
     ]
