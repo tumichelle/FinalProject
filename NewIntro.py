@@ -7,6 +7,7 @@ display_height = 391
 black = (0,0,0)
 white = (255, 255, 255)
 red = (255,0,0)
+blue = (0,0,255)
 
 #music
 
@@ -71,16 +72,23 @@ def game_intro():
     buttons = [
         {
             'msg': 'INSTRUCTIONS',
-            'rect': pygame.Rect(25, 310, 190, 90),
+            'rect': pygame.Rect(25, 310, 190, 60),
             'ac': black,
             'ic': red,
             'action': instructions_loop,
         },
         {
             'msg': 'ABOUT',
-            'rect': pygame.Rect(530, 320, 90, 90),
+            'rect': pygame.Rect(530, 310, 90, 60),
             'ac': black,
             'ic': red,
+            'action': about_loop,
+        },
+        {
+            'msg': 'START',
+            'rect': pygame.Rect(280, 305, 140, 70),
+            'ac': black,
+            'ic': blue,
             'action': about_loop,
         }
     ]
@@ -93,9 +101,11 @@ def game_intro():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 button_check(buttons[0])
                 button_check(buttons[1])
+                button_check(buttons[2])
 
         button_draw(buttons[0])
         button_draw(buttons[1])
+        button_draw(buttons[2])
 
         pygame.display.update()
 
@@ -108,7 +118,7 @@ def instructions_loop():
     buttons = [
         {
             'msg': 'BACK',
-            'rect': pygame.Rect(530, 320, 90, 90),
+            'rect': pygame.Rect(590, 310, 80, 60),
             'ac': black,
             'ic': red,
             'action': game_intro,
@@ -134,7 +144,7 @@ def about_loop():
     buttons = [
         {
             'msg': 'BACK',
-            'rect': pygame.Rect(530, 320, 90, 90),
+            'rect': pygame.Rect(590, 310, 80, 60),
             'ac': black,
             'ic': red,
             'action': game_intro,
