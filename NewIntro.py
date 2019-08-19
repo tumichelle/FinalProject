@@ -10,6 +10,7 @@ red = (255,0,0)
 
 #music
 
+game_display = pygame.display.set_mode((display_width,display_height))
 
 largeText = pygame.font.SysFont("DisposableDroidBB.ttf", 50)
 mediumText = pygame.font.SysFont("DisposableDroidBB.ttf", 35)
@@ -19,12 +20,11 @@ smallText = pygame.font.SysFont("DisposableDroidBB.ttf", 20)
 
 mouse = pygame.mouse.get_pos()
 
-gameDisplay = pygame.display.set_mode((display_width,display_height))
-
 def text_objects(text, font):
     textSurface = font.render(text, True, white)
     return textSurface, textSurface.get_rect()
 
+#checks if button is clicked, does action
 def button_check(button):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -32,13 +32,14 @@ def button_check(button):
         if click[0] == 1 and button['action']:
             button['action']()
 
+#changes button when moused over
 def button_draw(button):
     font = mediumText
     mouse = pygame.mouse.get_pos()
     if button['rect'].collidepoint(mouse):
-        color = button['ac']
-    else:
         color = button['ic']
+    else:
+        color = button['ac']
 
     pygame.draw.rect(game_display, color, button['rect'])
 
@@ -46,18 +47,24 @@ def button_draw(button):
     rect.center = button['rect'].center
     game_display.blit(image, rect)
 
+#quit game function
+def quit_game():
+    pygame.quit()
+    quit()
+
+#main intro page (with buttons to about and instructions)
 def game_intro():
 
     background_image = pygame.image.load("StartBackground.png")
-    gameDisplay.blit(background_image, [0, 0])
+    game_display.blit(background_image, [0, 0])
     TextSurf, TextRect = text_objects('RAISING THE', largeText)
     TextRect.center = ((350),(35))
-    gameDisplay.blit(TextSurf, TextRect)
+    game_display.blit(TextSurf, TextRect)
     pygame.display.update()
 
     TextSurf, TextRect = text_objects('STEAKS', unemployedText)
     TextRect.center = ((345),(180))
-    gameDisplay.blit(TextSurf, TextRect)
+    game_display.blit(TextSurf, TextRect)
     pygame.display.update()
 
 
@@ -65,15 +72,15 @@ def game_intro():
         {
             'msg': 'INSTRUCTIONS',
             'rect': pygame.Rect(25, 310, 190, 90),
-            'ac': red,
-            'ic': white,
+            'ac': black,
+            'ic': red,
             'action': instructions_loop,
         },
         {
             'msg': 'ABOUT',
             'rect': pygame.Rect(530, 320, 90, 90),
-            'ac': red,
-            'ic': white,
+            'ac': black,
+            'ic': red,
             'action': about_loop,
         }
     ]
@@ -92,14 +99,18 @@ def game_intro():
 
         pygame.display.update()
 
-
+#instructions page
 def instructions_loop():
+    font = mediumText
+    background_image = pygame.image.load("aboutbackground.png")
+    game_display.blit(background_image, [0, 0])
+
     buttons = [
         {
             'msg': 'BACK',
             'rect': pygame.Rect(530, 320, 90, 90),
-            'ac': red,
-            'ic': white,
+            'ac': black,
+            'ic': red,
             'action': game_intro,
         }
     ]
@@ -114,14 +125,18 @@ def instructions_loop():
         button_draw(buttons[0])
         pygame.display.update()
 
-
+#about page
 def about_loop():
+    font = mediumText
+    background_image = pygame.image.load("aboutbackground.png")
+    game_display.blit(background_image, [0, 0])
+
     buttons = [
         {
             'msg': 'BACK',
             'rect': pygame.Rect(530, 320, 90, 90),
-            'ac': red,
-            'ic': white,
+            'ac': black,
+            'ic': red,
             'action': game_intro,
         }
     ]
@@ -140,7 +155,6 @@ def about_loop():
 
 pygame.init()
 
-game_display = pygame.display.set_mode((display_width, display_height))
 game_display_rect = game_display.get_rect()
 
 game_intro()
