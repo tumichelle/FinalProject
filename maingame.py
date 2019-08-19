@@ -25,11 +25,13 @@ clock = pygame.time.Clock()
 
 class player(object):
     run = [pygame.image.load(os.path.join('Artwork','RunLeft.png')),
-            pygame.image.load(os.path.join('Artwork','RunRight.png'))]
+        pygame.image.load(os.path.join('Artwork','RunLeft.png')),
+        pygame.image.load(os.path.join('Artwork','RunRight.png')),
+        pygame.image.load(os.path.join('Artwork','RunRight.png')),]
     jump = pygame.image.load(os.path.join('Artwork','Jump.png'))
     slide = pygame.image.load(os.path.join('Artwork','Slide.png'))
-    jumpList = [1,1,2,2,2,2,3,3,3,3,4,4,4,4,0,0,0,0,-1,-1,-1,
-                -2,-2,-2,-2,-3,-3,-3,-3,-4,-4,-4,-4,-4]
+    jumpList = [8,8,8,8,8,8,8,0,0,0,0,0
+                -8,-8,-8,-8,-8,-8,-8]
     def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
@@ -47,18 +49,18 @@ class player(object):
             self.y -= self.jumpList[self.jumpCount] * 1.2
             win.blit(self.jump, (self.x,self.y))
             self.jumpCount += 1
-            if self.jumpCount > 32:
+            if self.jumpCount > 17:
                 self.jumpCount = 0
                 self.jumping = False
                 self.runCount = 0
         elif self.sliding or self.slideUp:
             #if self.slideCount < 20:
                 #self.y += 1
-            if self.slideCount ==25:
+            if self.slideCount ==18:
                 #self.y -= 19
                 self.sliding = False
                 #self.slideUp = True
-            if self.slideCount >= 25:
+            if self.slideCount >= 18:
                 self.slideCount = 0
                 self.slideUp = False
                 self.runCount = 0
@@ -66,17 +68,14 @@ class player(object):
             self.slideCount += 1
 
         else:
-            if self.runCount > 2:
+            if self.runCount > 5:
                 self.runCount = 1
             win.blit(self.run[self.runCount//2], (self.x,self.y))
             self.runCount += 1
-            time.sleep(0.1)
 
-class ground(object):
-    img = [pygame.image.load(os.path.join('Artwork','Bush1.png')),
-            pygame.image.load(os.path.join('Artwork','Bush2.png')),
-            pygame.image.load(os.path.join('Artwork','TrashCan.png')),
-            pygame.image.load(os.path.join('Artwork','Dog.png'))]
+
+class bush1(object):
+    img = (pygame.image.load(os.path.join('Artwork','Bush1.png')))
 
     def __init__(self, x, y, width, height):
         self.x = x
@@ -85,53 +84,87 @@ class ground(object):
         self.height = height
         self.hitbox = (x,y,width,height)
 
-    def draw(self,win,groundind):
-        win.blit(self.img[groundind], (self.x, self.y))
+    def draw(self,win):
+        win.blit((pygame.transform.scale(self.img), (44,44)), (self.x, self.y))
         self.hitbox = (self.x+2, self.y, self.width+10, self.height-10)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
-class fly(ground):
-    img = [pygame.image.load(os.path.join('Artwork','Birds1.png')),
-            pygame.image.load(os.path.join('Artwork','Birds2.png')),
-            pygame.image.load(os.path.join('Artwork','Birds3.png'))]
+class bush2(bush1):
+    img = (pygame.image.load(os.path.join('Artwork','Bush2.png')))
 
-    def draw(self,win,flyind):
-        win.blit(self.img[flyind], (self.x,self.y))
+    def draw(self,win):
+        win.blit(self.img, (self.x,self.y))
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
+class dog(bush1):
+    img = (pygame.image.load(os.path.join('Artwork','Dog.png')))
+
+    def draw(self,win):
+        win.blit(self.img, (self.x,self.y))
+        self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+class trashcan(bush1):
+    img = (pygame.image.load(os.path.join('Artwork','TrashCan.png')))
+
+    def draw(self,win):
+        win.blit(pygame.transform.scale(self.img,(50,60)), (self.x,self.y)
+        self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+class birds1(bush1):
+    img = (pygame.image.load(os.path.join('Artwork','Birds1.png')))
+
+    def draw(self,win):
+        win.blit(self.img, (self.x,self.y))
+        self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+class birds2(bush1):
+    img = (pygame.image.load(os.path.join('Artwork','Birds2.png')))
+
+    def draw(self,win):
+        win.blit(self.img, (self.x,self.y))
+        self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+class birds3(bush1):
+    img = (pygame.image.load(os.path.join('Artwork','Birds3.png')))
+
+    def draw(self,win):
+        win.blit(self.img, (self.x,self.y))
+        self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
 def redrawWindow():
     win.blit(bg, (bgX, 0))
     win.blit(bg, (bgX2,0))
     runner.draw(win)
-    flyy.draw(win,flyind)
-    groundd.draw(win,groundind)
+    for x in objects:
+            x.draw(win)
     pygame.display.update()
 
 flyind = random.randint(0,2)
 groundind = random.randint(0,3)
-flyy = fly(300,0,64,64)
-
-if groundind == 0: #darkbush
-    groundd = ground(300,230,64,64)
-elif groundind == 1: #lightbush
-    groundd = ground(300,242,35,45)
-elif groundind == 2: #trash can
-    groundd = ground(300,240,30,50)
-elif groundind == 3: #dog
-    groundd = ground(300,240,30,50)
-
-runner = player(200, 170, 10, 17)
+runner = player(200, 160, 10, 17)
 pygame.time.set_timer(USEREVENT+1, 500)
+pygame.time.set_timer(USEREVENT+2, random.randint(2000,3500))
 speed = 30
 run = True
 
+objects = []
 
 while run:
     redrawWindow()
-    bgX -= 1.4
-    bgX2 -= 1.4
+
+    for objectt in objects:
+        objectt.x -= 12
+        if objectt.x < objectt.width * -1:
+            objects.pop(objects.index(objectt))
+
+    bgX -= 13
+    bgX2 -= 13
     if bgX < bg.get_width() * -1:
         bgX = bg.get_width()
     if bgX2 < bg.get_width() * -1:
@@ -144,6 +177,24 @@ while run:
             quit()
         if event.type == USEREVENT+1:
             speed += 1
+        if event.type == USEREVENT+2:
+            r = random.randint(1,7)
+            if r == 1:
+                objects.append(bush1(710,230,44,44))
+            elif r == 2:
+                objects.append(bush2(710,242,35,45))
+            elif r == 3:
+                objects.append(trashcan(710,240,50,60))
+            elif r == 4:
+                objects.append(dog(710,240,30,50))
+            elif r == 5:
+                objects.append(birds1(710,150,120,50))
+            elif r == 6:
+                objects.append(birds2(710,150,120,50))
+            elif r == 7:
+                objects.append(birds3(710,150,120,50))
+
+
 
     keys = pygame.key.get_pressed()
 
