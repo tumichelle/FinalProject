@@ -12,7 +12,7 @@ W, H = 700, 391
 win = pygame.display.set_mode((W,H))
 pygame.display.set_caption('Escape from Unemployment')
 
-bg = pygame.image.load('pixil-frame-0-4.png').convert()
+bg = pygame.image.load('GameBackground.png').convert()
 bgX = 0
 bgX2 = bg.get_width()
 clock = pygame.time.Clock()
@@ -25,7 +25,7 @@ class player(object):
     jump = pygame.image.load(os.path.join('Artwork','Jump.png'))
     slide = pygame.image.load(os.path.join('Artwork','Slide.png'))
     fall = pygame.image.load(os.path.join('Artwork','Fall.png'))
-    jumpList = [12,12,12,12,12,12,0,0,0,0,0
+    jumpList = [12,12,12,12,12,12,0,0,0,0,0,0
                 -12,-12,-12,-12,-12,-12]
     def __init__(self, x, y, width, height):
         self.x = x
@@ -46,7 +46,7 @@ class player(object):
             self.y -= self.jumpList[self.jumpCount] * 1.2
             win.blit(self.jump, (self.x,self.y))
             self.jumpCount += 1
-            if self.jumpCount > 15:
+            if self.jumpCount > 16:
                 self.jumpCount = 0
                 self.jumping = False
                 self.runCount = 0
@@ -59,17 +59,17 @@ class player(object):
                 self.sliding = False
                 #self.slideUp = True
             if self.slideCount < 18:
-                self.hitbox = (self.x, self.y+3,300 , 61)
+                self.hitbox = (self.x, self.y+60,111 , 51)
             if self.slideCount >= 18:
                 self.slideCount = 0
                 self.slideUp = False
                 self.runCount = 0
+                self.hitbox = (self.x, self.y+100, 60, 51)
             win.blit(self.slide, (self.x,(self.y+50)))
-            self.hitbox = (self.x+4, self.y, self.width-24, self.height-10)
             self.slideCount += 1
 
         elif self.falling:
-            win.blit(fall, (self.x, self.y + 30))
+            win.blit(self.fall, (self.x, self.y + 90))
 
         else:
             if self.runCount > 5:
@@ -94,6 +94,12 @@ class bush1(object):
         self.hitbox = (self.x+2, self.y, self.width+10, self.height-10)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
+    def collide(self, rect): #for ground objects
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[1]:
+                return True
+        return False
+
 class bush2(bush1):
     img = (pygame.image.load(os.path.join('Artwork','Bush2.png')))
 
@@ -101,6 +107,12 @@ class bush2(bush1):
         win.blit(pygame.transform.scale(self.img, (70,55)), (self.x,self.y))
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+    def collide(self, rect): #for ground objects
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[1]:
+                return True
+        return False
 
 class dog(bush1):
     img = (pygame.image.load(os.path.join('Artwork','Dog.png')))
@@ -110,6 +122,12 @@ class dog(bush1):
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
+    def collide(self, rect): #for ground objects
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[1]:
+                return True
+        return False
+
 class trashcan(bush1):
     img = (pygame.image.load(os.path.join('Artwork','TrashCan.png')))
 
@@ -117,6 +135,12 @@ class trashcan(bush1):
         win.blit(pygame.transform.scale(self.img,(50,60)), (self.x,self.y))
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+    def collide(self, rect): #for ground objects
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[1]:
+                return True
+        return False
 
 class birds1(bush1):
     img = (pygame.image.load(os.path.join('Artwork','Birds1.png')))
@@ -126,6 +150,12 @@ class birds1(bush1):
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
+    def collide(self, rect):
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] < self.hitbox[1] + self.hitbox[3]:
+                return True
+        return False
+
 class birds2(bush1):
     img = (pygame.image.load(os.path.join('Artwork','Birds2.png')))
 
@@ -134,6 +164,12 @@ class birds2(bush1):
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
+    def collide(self, rect):
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] < self.hitbox[3] + self.hitbox[1]:
+                return True
+        return False
+
 class birds3(bush1):
     img = (pygame.image.load(os.path.join('Artwork','Birds3.png')))
 
@@ -141,6 +177,12 @@ class birds3(bush1):
         win.blit(self.img, (self.x,self.y))
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+    def collide(self, rect):
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] < self.hitbox[3] + self.hitbox[1]:
+                return True
+        return False
 
 def redrawWindow():
     win.blit(bg, (bgX, 0))
@@ -164,6 +206,12 @@ while run:
     redrawWindow()
 
     for objectt in objects:
+        if objectt.collide(runner.hitbox):
+            runner.falling = True
+            pygame.time.delay(500)
+            objects.pop(objects.index(objectt))
+            runner.falling = False
+
         objectt.x -= 12
         if objectt.x < objectt.width * -1:
             objects.pop(objects.index(objectt))
