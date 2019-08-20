@@ -16,7 +16,7 @@ game_display = pygame.display.set_mode((display_width,display_height))
 largeText = pygame.font.SysFont("DisposableDroidBB.ttf", 50)
 mediumText = pygame.font.SysFont("DisposableDroidBB.ttf", 35)
 startText = pygame.font.SysFont("DisposableDroidBB.ttf", 75)
-unemployedText = pygame.font.SysFont("DisposableDroidBB.ttf", 70)
+steakText = pygame.font.SysFont("DisposableDroidBB.ttf", 60)
 smallText = pygame.font.SysFont("DisposableDroidBB.ttf", 20)
 
 mouse = pygame.mouse.get_pos()
@@ -60,14 +60,14 @@ def quit_game():
 #main intro page (with buttons to about and instructions)
 def game_intro():
 
-    background_image = pygame.image.load("StartBackground.png")
+    background_image = pygame.image.load("SteakStart.png")
     game_display.blit(background_image, [0, 0])
     TextSurf, TextRect = textWhite('RAISING THE', largeText)
-    TextRect.center = ((350),(35))
+    TextRect.center = ((350),(45))
     game_display.blit(TextSurf, TextRect)
     pygame.display.update()
 
-    TextSurf, TextRect = textWhite('STEAKS', unemployedText)
+    TextSurf, TextRect = textWhite('STEAKS', steakText)
     TextRect.center = ((345),(180))
     game_display.blit(TextSurf, TextRect)
     pygame.display.update()
@@ -115,7 +115,7 @@ def game_intro():
 
 #instructions page with back button
 def instructions_loop():
-    background_image = pygame.image.load("OHMYGODMICHELLEISPICKY.png")
+    background_image = pygame.image.load("THEMOTHERFRICKINGINTROANDABOUT.png")
     game_display.blit(background_image, [0, 0])
 
     TextSurf, TextRect = textWhite('INSTRUCTIONS', largeText)
@@ -145,7 +145,7 @@ def instructions_loop():
 
 #about page with back button
 def about_loop():
-    background_image = pygame.image.load("OHMYGODMICHELLEISPICKY.png")
+    background_image = pygame.image.load("THEMOTHERFRICKINGINTROANDABOUT.png")
     game_display.blit(background_image, [0, 0])
 
     TextSurf, TextRect = textWhite('ABOUT', largeText)
@@ -175,7 +175,7 @@ def about_loop():
 
 #levels page after pressing start button
 def levels_loop():
-    background_image = pygame.image.load("michelleiskillingmeSOS.png")
+    background_image = pygame.image.load("MichellePleaseStop.png")
     game_display.blit(background_image, [0, 0])
 
     TextSurf, TextRect = textWhite('CHOOSE A DIFFICULTY', largeText)
@@ -193,21 +193,21 @@ def levels_loop():
         },
         {
             'msg': 'LEVEL 1',
-            'rect': pygame.Rect(56, 150, 340, 40),
+            'rect': pygame.Rect(62, 150, 340, 40),
             'ac': black,
             'ic': (135,206,235),
             'action': game_intro,
         },
         {
             'msg': 'LEVEL 2',
-            'rect': pygame.Rect(56, 230, 340, 40),
+            'rect': pygame.Rect(62, 225, 340, 40),
             'ac': black,
             'ic': (30,144,255),
             'action': game_intro,
         },
         {
             'msg': 'LEVEL 3',
-            'rect': pygame.Rect(56, 310, 340, 40),
+            'rect': pygame.Rect(62, 300, 340, 40),
             'ac': black,
             'ic': (0,0,139),
             'action': game_intro,
