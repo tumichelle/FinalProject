@@ -1,21 +1,26 @@
 import classDefs
 from classDefs import *
+import time
 
 import buttons
 from buttons import *
 
 pygame.init()
 
+
+
 def level1():
-    play(1500,2500)
+    play(5)
 
 def level2():
-    play(1000,1250)
+    play(10)
 
 def level3():
-    play(750,1000)
+    play(15)
 
-def play(levela,levelb):
+
+
+def play(level):
     W, H = 700, 391
     win = pygame.display.set_mode((W,H))
     pygame.display.set_caption('Raising the Stakes')
@@ -25,7 +30,7 @@ def play(levela,levelb):
     bgX2 = bg.get_width()
     clock = pygame.time.Clock()
     lives = pygame.image.load('lives.png')
-    pygame.time.set_timer(USEREVENT+2, random.randrange(levela,levelb)) #can change this to make level harder
+    #ygame.time.set_timer(USEREVENT+2, random.randrange(tick * levela,tick * levelb)) #can change this to make level harder
 
     def life1():
         win.blit(pygame.transform.scale(lives, (25,25)), (660,10))
@@ -99,10 +104,10 @@ def play(levela,levelb):
 
 
     objects = []
-
+    tick = 0
     while run:
+        tick += 1
         redrawWindow()
-
         for objectt in objects:
             if objectt.collide(runner.hitbox):
                 runner.falling = True
@@ -149,7 +154,7 @@ def play(levela,levelb):
                 quit()
             if event.type == USEREVENT+1:
                 speed += 1
-            if event.type == USEREVENT+2:
+            if (tick%10) == 0:
                 r = random.randint(1,8)
                 if r == 1:
                     objects.append(bush1(710,230,44,64))
@@ -167,6 +172,7 @@ def play(levela,levelb):
                     objects.append(birds3(710,150,120,50))
                 elif r == 8:
                     objects.append(firehydrant(710,230,55,65))
+    
 
 
 
