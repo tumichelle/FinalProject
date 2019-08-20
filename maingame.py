@@ -16,7 +16,7 @@ bg = pygame.image.load('GameBackground.png').convert()
 bgX = 0
 bgX2 = bg.get_width()
 clock = pygame.time.Clock()
-
+lives = pygame.image.load('lives.png')
 
 class player(object):
     run = [pygame.image.load(os.path.join('Artwork','RunLeft.png')),
@@ -206,6 +206,9 @@ class birds3(bush1):
 def redrawWindow():
     win.blit(bg, (bgX, 0))
     win.blit(bg, (bgX2,0))
+    win.blit(lives, (300,10))
+    win.blit(lives, (310,10))
+    win.blit(lives, (320,10))
     runner.draw(win)
     for x in objects:
             x.draw(win)
