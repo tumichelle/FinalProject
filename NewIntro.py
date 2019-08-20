@@ -1,5 +1,6 @@
 import pygame
-
+import maingame
+from maingame import *
 
 pygame.init()
 
@@ -37,7 +38,7 @@ def button_check(button):
     click = pygame.mouse.get_pressed()
     if button['rect'].collidepoint(mouse):
         if click[0] == 1 and button['action']:
-            button['action']('levela','levelb')
+            button['action']()
 
 #changes button when moused over
 def button_draw(button):
