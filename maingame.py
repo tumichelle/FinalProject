@@ -2,9 +2,6 @@ import classDefs
 from classDefs import *
 import time
 
-import buttons
-from buttons import *
-
 pygame.init()
 
 
@@ -172,7 +169,7 @@ def play(level):
                     objects.append(birds3(710,150,120,50))
                 elif r == 8:
                     objects.append(firehydrant(710,230,55,65))
-    
+
 
 
 

@@ -2,7 +2,6 @@ import pygame
 import maingame
 from maingame import *
 
-
 pygame.init()
 
 display_width = 700
