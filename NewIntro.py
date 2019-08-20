@@ -133,6 +133,40 @@ def instructions_loop():
         }
     ]
 
+    #Instructional Text, Brought to you by AJ
+    TextSurf, TextRect = textWhite("OBJECTIVE: GATHER 600 POINTS TO 'RAISE THE STEAKS'", smallText)
+    TextRect.center = ((270),(140))
+    game_display.blit(TextSurf, TextRect)
+    pygame.display.update()
+    TextSurf, TextRect = textWhite("AVOID THE OBSTACLES USING THE ARROW KEY", smallText)
+    TextRect.center = ((230),(170))
+    game_display.blit(TextSurf, TextRect)
+    pygame.display.update()
+    TextSurf, TextRect = textWhite("THIS GAME TEACHES RISK VERSUS REWARD, EARNING: ", smallText)
+    TextRect.center = ((260),(200))
+    game_display.blit(TextSurf, TextRect)
+    pygame.display.update()
+    TextSurf, TextRect = textWhite("100 POINTS FOR LEVEL 1 ", smallText)
+    TextRect.center = ((270),(230))
+    game_display.blit(TextSurf, TextRect)
+    pygame.display.update()
+    TextSurf, TextRect = textWhite("200 POINTS FOR LEVEL 2 ", smallText)
+    TextRect.center = ((270),(260))
+    game_display.blit(TextSurf, TextRect)
+    pygame.display.update()
+    TextSurf, TextRect = textWhite("300 POINTS FOR LEVEL 3 ", smallText)
+    TextRect.center = ((270),(290))
+    game_display.blit(TextSurf, TextRect)
+    pygame.display.update()
+    TextSurf, TextRect = textWhite("PLOT TWIST: THE NUMBER OF LIVES YOU GET IS RANDOMIZED ", smallText)
+    TextRect.center = ((280),(320))
+    game_display.blit(TextSurf, TextRect)
+    pygame.display.update()
+    TextSurf, TextRect = textWhite("GOOD LUCK RAISING THE STEAKS! ", mediumText)
+    TextRect.center = ((270),(350))
+    game_display.blit(TextSurf, TextRect)
+    pygame.display.update()
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
