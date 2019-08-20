@@ -14,8 +14,9 @@ class player(object):
     jump = pygame.image.load(os.path.join('Artwork','Jump.png'))
     slide = pygame.image.load(os.path.join('Artwork','Slide.png'))
     fall = pygame.image.load(os.path.join('Artwork','Fall.png'))
-    jumpList = [30,30,30,0,0,0,0,0,0,0,0,0
+    jumpList = [30,30,30,0,0,0,0,0,0,0,0
                 -30,-30,-30]
+
     def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
@@ -42,7 +43,7 @@ class player(object):
             self.y -= self.jumpList[self.jumpCount] * 1.2
             win.blit(self.jump, (self.x,self.y))
             self.jumpCount += 1
-            if self.jumpCount > 14:
+            if self.jumpCount > 12:
                 self.jumpCount = 0
                 self.jumping = False
                 self.runCount = 0
