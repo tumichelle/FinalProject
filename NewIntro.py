@@ -1,5 +1,6 @@
 import pygame
 
+
 pygame.init()
 
 display_width = 700
@@ -36,7 +37,7 @@ def button_check(button):
     click = pygame.mouse.get_pressed()
     if button['rect'].collidepoint(mouse):
         if click[0] == 1 and button['action']:
-            button['action']()
+            button['action']('levela','levelb')
 
 #changes button when moused over
 def button_draw(button):
@@ -303,25 +304,25 @@ def levels_loop():
             'action': game_intro,
         },
         {
-            'msg': 'LEVEL 1',
+            'msg': 'LEVEL 1 (+100pts)',
             'rect': pygame.Rect(62, 150, 340, 40),
             'ac': black,
             'ic': (135,206,235),
-            'action': game_intro,
+            'action': level1,
         },
         {
-            'msg': 'LEVEL 2',
+            'msg': 'LEVEL 2 (+200pts)',
             'rect': pygame.Rect(62, 225, 340, 40),
             'ac': black,
             'ic': (30,144,255),
-            'action': game_intro,
+            'action': level2,
         },
         {
-            'msg': 'LEVEL 3',
+            'msg': 'LEVEL 3 (+300pts)',
             'rect': pygame.Rect(62, 300, 340, 40),
             'ac': black,
             'ic': (0,0,139),
-            'action': game_intro,
+            'action': level3,
         }
     ]
 
