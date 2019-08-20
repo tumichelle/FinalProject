@@ -12,10 +12,11 @@ W, H = 700, 391
 win = pygame.display.set_mode((W,H))
 pygame.display.set_caption('Escape from Unemployment')
 
-bg = pygame.image.load('pixil-frame-0-4.png').convert()
+bg = pygame.image.load('GameBackground.png').convert()
 bgX = 0
 bgX2 = bg.get_width()
 clock = pygame.time.Clock()
+lives = pygame.image.load('lives.png')
 
 class player(object):
     run = [pygame.image.load(os.path.join('Artwork','RunLeft.png')),
@@ -25,7 +26,7 @@ class player(object):
     jump = pygame.image.load(os.path.join('Artwork','Jump.png'))
     slide = pygame.image.load(os.path.join('Artwork','Slide.png'))
     fall = pygame.image.load(os.path.join('Artwork','Fall.png'))
-    jumpList = [12,12,12,12,12,12,0,0,0,0,0
+    jumpList = [12,12,12,12,12,12,0,0,0,0,0,0,0
                 -12,-12,-12,-12,-12,-12]
     def __init__(self, x, y, width, height):
         self.x = x
@@ -40,13 +41,20 @@ class player(object):
         self.slideUp = False
         self.falling = False
         self.hitbox = (x,y,width,height)
+        self.fallCount = 0
 
     def draw(self, win):
-        if self.jumping:
+        if self.falling:
+            win.blit(self.fall, (self.x, self.y + 90))
+            self.fallCount += 12
+            if self.fallCount >= 60:
+                self.fallCount = 0
+                self.falling = False
+        elif self.jumping:
             self.y -= self.jumpList[self.jumpCount] * 1.2
             win.blit(self.jump, (self.x,self.y))
             self.jumpCount += 1
-            if self.jumpCount > 15:
+            if self.jumpCount > 17:
                 self.jumpCount = 0
                 self.jumping = False
                 self.runCount = 0
@@ -59,17 +67,15 @@ class player(object):
                 self.sliding = False
                 #self.slideUp = True
             if self.slideCount < 18:
-                self.hitbox = (self.x, self.y+3,300 , 61)
+                self.hitbox = (self.x, self.y+60,111 , 51)
             if self.slideCount >= 18:
                 self.slideCount = 0
                 self.slideUp = False
                 self.runCount = 0
+                self.hitbox = (self.x, self.y+100, 60, 51)
             win.blit(self.slide, (self.x,(self.y+50)))
-            self.hitbox = (self.x+4, self.y, self.width-24, self.height-10)
             self.slideCount += 1
 
-        elif self.falling:
-            win.blit(fall, (self.x, self.y + 30))
 
         else:
             if self.runCount > 5:
@@ -77,7 +83,7 @@ class player(object):
             win.blit(self.run[self.runCount//2], (self.x,self.y))
             self.runCount += 1
             self.hitbox = (self.x+6, self.y+10, self.width, self.height)
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
 
 class bush1(object):
     img = (pygame.image.load(os.path.join('Artwork','Bush1.png')))
@@ -92,7 +98,32 @@ class bush1(object):
     def draw(self,win):
         win.blit(pygame.transform.scale(self.img, (44,44)), (self.x, self.y))
         self.hitbox = (self.x+2, self.y, self.width+10, self.height-10)
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+    def collide(self, rect): #for ground objects
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[1]:
+                return True
+        return False
+
+class firehydrant(bush1):
+    img = (pygame.image.load(os.path.join('Artwork','FireHydrant.png')))
+
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.hitbox = (x,y,width,height)
+
+    def draw(self,win):
+        win.blit(pygame.transform.scale(self.img, (44,44)), (self.x, self.y))
+        self.hitbox = (self.x+2, self.y, self.width-10, self.height-10)
+
+    def collide(self, rect): #for ground objects
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[1]:
+                return True
+        return False
 
 class bush2(bush1):
     img = (pygame.image.load(os.path.join('Artwork','Bush2.png')))
@@ -100,7 +131,12 @@ class bush2(bush1):
     def draw(self,win):
         win.blit(pygame.transform.scale(self.img, (70,55)), (self.x,self.y))
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+    def collide(self, rect): #for ground objects
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[1]:
+                return True
+        return False
 
 class dog(bush1):
     img = (pygame.image.load(os.path.join('Artwork','Dog.png')))
@@ -108,7 +144,12 @@ class dog(bush1):
     def draw(self,win):
         win.blit(pygame.transform.scale(self.img,(75,45)), (self.x,self.y))
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+    def collide(self, rect): #for ground objects
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[1]:
+                return True
+        return False
 
 class trashcan(bush1):
     img = (pygame.image.load(os.path.join('Artwork','TrashCan.png')))
@@ -116,7 +157,12 @@ class trashcan(bush1):
     def draw(self,win):
         win.blit(pygame.transform.scale(self.img,(50,60)), (self.x,self.y))
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+    def collide(self, rect): #for ground objects
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[1]:
+                return True
+        return False
 
 class birds1(bush1):
     img = (pygame.image.load(os.path.join('Artwork','Birds1.png')))
@@ -124,7 +170,12 @@ class birds1(bush1):
     def draw(self,win):
         win.blit(self.img, (self.x,self.y))
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+    def collide(self, rect):
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] < self.hitbox[1] + self.hitbox[3]:
+                return True
+        return False
 
 class birds2(bush1):
     img = (pygame.image.load(os.path.join('Artwork','Birds2.png')))
@@ -132,7 +183,12 @@ class birds2(bush1):
     def draw(self,win):
         win.blit(self.img, (self.x,self.y))
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+    def collide(self, rect):
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] < self.hitbox[3] + self.hitbox[1]:
+                return True
+        return False
 
 class birds3(bush1):
     img = (pygame.image.load(os.path.join('Artwork','Birds3.png')))
@@ -140,21 +196,32 @@ class birds3(bush1):
     def draw(self,win):
         win.blit(self.img, (self.x,self.y))
         self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+
+    def collide(self, rect):
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] < self.hitbox[3] + self.hitbox[1]:
+                return True
+        return False
 
 def redrawWindow():
     win.blit(bg, (bgX, 0))
     win.blit(bg, (bgX2,0))
+    win.blit(lives, (300,10))
+    win.blit(lives, (310,10))
+    win.blit(lives, (320,10))
     runner.draw(win)
     for x in objects:
             x.draw(win)
     pygame.display.update()
 
+def reset():
+    pass
+
 flyind = random.randint(0,2)
 groundind = random.randint(0,3)
 runner = player(200, 160, 63, 111)
 pygame.time.set_timer(USEREVENT+1, 500)
-pygame.time.set_timer(USEREVENT+2, random.randrange(2000,3500)) #can change this to make level harder
+pygame.time.set_timer(USEREVENT+2, random.randrange(1500,2500)) #can change this to make level harder
 speed = 30
 run = True
 
@@ -164,6 +231,12 @@ while run:
     redrawWindow()
 
     for objectt in objects:
+        if objectt.collide(runner.hitbox):
+            runner.falling = True
+            objects.pop(objects.index(objectt))
+        else:
+            runner.falling = False
+
         objectt.x -= 12
         if objectt.x < objectt.width * -1:
             objects.pop(objects.index(objectt))
@@ -183,7 +256,7 @@ while run:
         if event.type == USEREVENT+1:
             speed += 1
         if event.type == USEREVENT+2:
-            r = random.randint(1,7)
+            r = random.randint(1,8)
             if r == 1:
                 objects.append(bush1(710,230,44,64))
             elif r == 2:
@@ -198,6 +271,8 @@ while run:
                 objects.append(birds2(710,150,120,50))
             elif r == 7:
                 objects.append(birds3(710,150,120,50))
+            elif r == 8:
+                objects.append(firehydrant(710,230,55,65))
 
 
 
