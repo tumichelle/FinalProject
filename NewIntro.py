@@ -18,6 +18,7 @@ mediumText = pygame.font.SysFont("DisposableDroidBB.ttf", 35)
 startText = pygame.font.SysFont("DisposableDroidBB.ttf", 75)
 steakText = pygame.font.SysFont("DisposableDroidBB.ttf", 60)
 smallText = pygame.font.SysFont("DisposableDroidBB.ttf", 20)
+nameText = pygame.font.SysFont("DisposableDroidBB.ttf", 30)
 
 mouse = pygame.mouse.get_pos()
 
@@ -197,6 +198,25 @@ def about_loop():
         }
     ]
 
+#michelle's bio
+    michelle = pygame.image.load("michelle.jpeg")
+    game_display.blit(michelle, (20,130))
+    TextSurf, TextRect = textWhite("MICHELLE TU", nameText)
+    TextRect.center = ((210),(140))
+    game_display.blit(TextSurf, TextRect)
+    pygame.display.update()
+
+#leia's bio
+    leia = pygame.image.load("leia.jpeg")
+    game_display.blit(leia, (300,130))
+
+#ellie's bio
+    ellie = pygame.image.load("ellie.jpeg")
+    game_display.blit(ellie, (20,270))
+
+#aj's bio
+    aj = pygame.image.load("aj.jpeg")
+    game_display.blit(aj, (300,270))
 
     while True:
         for event in pygame.event.get():
