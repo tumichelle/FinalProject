@@ -10,7 +10,7 @@ pygame.init()
 
 W, H = 700, 391
 win = pygame.display.set_mode((W,H))
-pygame.display.set_caption('Escape from Unemployment')
+pygame.display.set_caption('Raising the Stakes')
 
 bg = pygame.image.load('GameBackground.png').convert()
 bgX = 0
@@ -203,19 +203,60 @@ class birds3(bush1):
                 return True
         return False
 
+def life1():
+    win.blit(pygame.transform.scale(lives, (25,25)), (660,10))
+
+def life2():
+    win.blit(pygame.transform.scale(lives, (25,25)), (630,10))
+
+def life3():
+    win.blit(pygame.transform.scale(lives, (25,25)), (600,10))
+
 def redrawWindow():
     win.blit(bg, (bgX, 0))
     win.blit(bg, (bgX2,0))
-    win.blit(lives, (300,10))
-    win.blit(lives, (310,10))
-    win.blit(lives, (320,10))
+    if lifenum == 1:
+        if live1 == True:
+            life1()
+    elif lifenum == 2:
+        if live1 == True:
+            life1()
+        if live2 == True:
+            life2()
+    elif lifenum == 3:
+        if live1 == True:
+            life1()
+        if live2 == True:
+            life2()
+        if live3 == True:
+            life3()
     runner.draw(win)
     for x in objects:
             x.draw(win)
     pygame.display.update()
 
-def reset():
-    pass
+def losescreen():
+    global lifenum, die, live1, live2, live3, objects, speed, lose
+    lifenum = random.randint(1,3)
+    die = 0
+    live1 = True
+    live2 = True
+    live3 = True
+    objects = []
+    speed = 30
+    run = True
+    while run:
+        pygame.time.delay(100)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                pygame.quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                run = False
+        win.blit(lose, [0,0])
+        pygame.display.update()
+
+
 
 flyind = random.randint(0,2)
 groundind = random.randint(0,3)
@@ -224,6 +265,12 @@ pygame.time.set_timer(USEREVENT+1, 500)
 pygame.time.set_timer(USEREVENT+2, random.randrange(1500,2500)) #can change this to make level harder
 speed = 30
 run = True
+lifenum = random.randint(1,3)
+die = 0
+live1 = True
+live2 = True
+live3 = True
+lose = pygame.image.load('losingscreen.png')
 
 objects = []
 
@@ -234,6 +281,27 @@ while run:
         if objectt.collide(runner.hitbox):
             runner.falling = True
             objects.pop(objects.index(objectt))
+            if die == 0:
+                if lifenum == 1:
+                    live1 = False
+                    losescreen()
+                elif lifenum == 2:
+                    live2 = False
+                elif lifenum == 3:
+                    live3 = False
+                die += 1
+            elif die == 1:
+                if lifenum == 2:
+                    live1 = False
+                    losescreen()
+                elif lifenum == 3:
+                    live2 = False
+                die += 1
+            elif die == 2:
+                live1 = False
+                losescreen()
+
+
         else:
             runner.falling = False
 
