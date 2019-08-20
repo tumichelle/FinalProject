@@ -35,7 +35,7 @@ class player(object):
         if self.falling:
             win.blit(self.fall, (self.x, self.y + 90))
             self.fallCount += 12
-            if self.fallCount >= 60:
+            if self.fallCount >= 70:
                 self.fallCount = 0
                 self.falling = False
         elif self.jumping:

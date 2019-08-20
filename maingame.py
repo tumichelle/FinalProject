@@ -56,7 +56,6 @@ def losescreen():
     speed = 30
     run = True
     while run:
-        pygame.time.delay(100)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -64,6 +63,9 @@ def losescreen():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 run = False
         win.blit(lose, [0,0])
+        # largefont = pygame.font.SysFont('DisposableDroidBB.tff', 100)
+        # youlose = largefont.render('YOU LOSE',1,(255,255,255))
+        # win.blit(youlose,(180,100))
         pygame.display.update()
 
 
@@ -80,7 +82,7 @@ die = 0
 live1 = True
 live2 = True
 live3 = True
-lose = pygame.image.load('losingscreen.png')
+lose = pygame.image.load('LoseScreen.png')
 
 objects = []
 
