@@ -2,6 +2,7 @@ import pygame
 import maingame
 from maingame import *
 
+
 pygame.init()
 
 display_width = 700
@@ -24,13 +25,6 @@ nameText = pygame.font.SysFont("DisposableDroidBB.ttf", 25)
 
 mouse = pygame.mouse.get_pos()
 
-def textWhite(text, font):
-    textSurface = font.render(text, True, white)
-    return textSurface, textSurface.get_rect()
-
-def textRed(text, font):
-    textStart = font.render(text, True, red)
-    return textStart, textStart.get_rect()
 
 #checks if button is clicked, does action
 def button_check(button):
@@ -41,8 +35,7 @@ def button_check(button):
             button['action']()
 
 #changes button when moused over
-def button_draw(button):
-    font = mediumText
+def button_draw(button, font):
     mouse = pygame.mouse.get_pos()
     if button['rect'].collidepoint(mouse):
         color = button['ic']
@@ -54,6 +47,16 @@ def button_draw(button):
     image, rect = textWhite(button['msg'], font)
     rect.center = button['rect'].center
     game_display.blit(image, rect)
+
+
+def textWhite(text, font):
+    textSurface = font.render(text, True, white)
+    return textSurface, textSurface.get_rect()
+
+def textRed(text, font):
+    textStart = font.render(text, True, red)
+    return textStart, textStart.get_rect()
+
 
 #quit game function
 def quit_game():
@@ -110,9 +113,9 @@ def game_intro():
                 button_check(buttons[1])
                 button_check(buttons[2])
 
-        button_draw(buttons[0])
-        button_draw(buttons[1])
-        button_draw(buttons[2])
+        button_draw(buttons[0], mediumText)
+        button_draw(buttons[1], mediumText)
+        button_draw(buttons[2], largeText)
 
         pygame.display.update()
 
@@ -177,7 +180,7 @@ def instructions_loop():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 button_check(buttons[0])
 
-        button_draw(buttons[0])
+        button_draw(buttons[0], mediumText)
         pygame.display.update()
 
 #about page with back button
@@ -283,7 +286,7 @@ def about_loop():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 button_check(buttons[0])
 
-        button_draw(buttons[0])
+        button_draw(buttons[0], mediumText)
         pygame.display.update()
 
 #levels page after pressing start button
@@ -337,10 +340,10 @@ def levels_loop():
                 button_check(buttons[2])
                 button_check(buttons[3])
 
-        button_draw(buttons[0])
-        button_draw(buttons[1])
-        button_draw(buttons[2])
-        button_draw(buttons[3])
+        button_draw(buttons[0], mediumText)
+        button_draw(buttons[1], mediumText)
+        button_draw(buttons[2], mediumText)
+        button_draw(buttons[3], mediumText)
         pygame.display.update()
 
 

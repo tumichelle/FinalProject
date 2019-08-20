@@ -1,6 +1,9 @@
 import classDefs
 from classDefs import *
 
+import buttons
+from buttons import *
+
 pygame.init()
 
 def level1():
@@ -97,7 +100,7 @@ def play(levela,levelb):
 
     objects = []
 
-    while run: 
+    while run:
         redrawWindow()
 
         for objectt in objects:
