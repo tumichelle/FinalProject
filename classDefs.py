@@ -42,7 +42,7 @@ class player(object):
             self.y -= self.jumpList[self.jumpCount] * 1.2
             win.blit(self.jump, (self.x,self.y))
             self.jumpCount += 1
-            if self.jumpCount > 17:
+            if self.jumpCount > 14:
                 self.jumpCount = 0
                 self.jumping = False
                 self.runCount = 0
