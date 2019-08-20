@@ -7,11 +7,10 @@ def level1():
     play(1500,2500)
 
 def level2():
-    play(1250,2250)
+    play(1000,1250)
 
 def level3():
-    play(1000,2000)
-
+    play(750,1000)
 
 def play(levela,levelb):
     W, H = 700, 391
@@ -23,6 +22,7 @@ def play(levela,levelb):
     bgX2 = bg.get_width()
     clock = pygame.time.Clock()
     lives = pygame.image.load('lives.png')
+    pygame.time.set_timer(USEREVENT+2, random.randrange(levela,levelb)) #can change this to make level harder
 
     def life1():
         win.blit(pygame.transform.scale(lives, (25,25)), (660,10))
@@ -66,13 +66,14 @@ def play(levela,levelb):
         objects = []
         speed = 30
         run = True
+        lose = pygame.image.load('LoseScreen.png')
         while run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
                     pygame.quit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    run = False
+                # if event.type == pygame.MOUSEBUTTONDOWN:
+                #     run = False
             win.blit(lose, [0,0])
             # largefont = pygame.font.SysFont('DisposableDroidBB.tff', 100)
             # youlose = largefont.render('YOU LOSE',1,(255,255,255))
@@ -85,7 +86,6 @@ def play(levela,levelb):
     groundind = random.randint(0,3)
     runner = player(200, 160, 63, 111)
     pygame.time.set_timer(USEREVENT+1, 500)
-    pygame.time.set_timer(USEREVENT+2, random.randrange(levela,levelb)) #can change this to make level harder
     speed = 30
     run = True
     lifenum = random.randint(1,3)
@@ -93,7 +93,7 @@ def play(levela,levelb):
     live1 = True
     live2 = True
     live3 = True
-    lose = pygame.image.load('LoseScreen.png')
+
 
     objects = []
 
