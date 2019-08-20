@@ -7,17 +7,17 @@ pygame.init()
 
 
 def level1():
-    play(5)
+    play(60,70)
 
 def level2():
-    play(10)
+    play(50,60)
 
 def level3():
-    play(15)
+    play(40,50)
 
 
 
-def play(level):
+def play(leva,levb):
     W, H = 700, 391
     win = pygame.display.set_mode((W,H))
     pygame.display.set_caption('Raising the Stakes')
@@ -144,6 +144,8 @@ def play(level):
         if bgX2 < bg.get_width() * -1:
             bgX2 = bg.get_width()
 
+
+        #print(pygame.event.get())
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -151,25 +153,28 @@ def play(level):
                 quit()
             if event.type == USEREVENT+1:
                 speed += 1
-            if (tick%10) == 0:
-                r = random.randint(1,8)
-                if r == 1:
-                    objects.append(bush1(710,230,44,64))
-                elif r == 2:
-                    objects.append(bush2(710,232,60,75))
-                elif r == 3:
-                    objects.append(trashcan(710,220,50,60))
-                elif r == 4:
-                    objects.append(dog(710,240,75,45))
-                elif r == 5:
-                    objects.append(birds1(710,150,120,50))
-                elif r == 6:
-                    objects.append(birds2(710,150,120,50))
-                elif r == 7:
-                    objects.append(birds3(710,150,120,50))
-                elif r == 8:
-                    objects.append(firehydrant(710,230,55,65))
-    
+
+        if (tick%(random.randint(leva,levb))) == 0:
+            r = random.randint(1,11)
+            if r == 1:
+                objects.append(bush1(710,230,44,64))
+            elif r == 2:
+                objects.append(bush2(710,232,60,75))
+            elif r == 3 or r == 9:
+                objects.append(trashcan(710,220,50,60))
+            elif r == 4 or r == 10:
+                objects.append(dog(710,240,75,45))
+            elif r == 5:
+                objects.append(birds1(710,150,120,50))
+            elif r == 6:
+                objects.append(birds2(710,150,120,50))
+            elif r == 7:
+                objects.append(birds3(710,150,120,50))
+            elif r == 8 or r == 11:
+                objects.append(firehydrant(710,230,55,65))
+            tick = 0
+
+
 
 
 
