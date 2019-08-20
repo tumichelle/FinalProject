@@ -97,8 +97,7 @@ def play(levela,levelb):
 
     objects = []
 
-    run = True
-    while run:
+    while run: 
         redrawWindow()
 
         for objectt in objects:

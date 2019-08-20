@@ -14,8 +14,8 @@ class player(object):
     jump = pygame.image.load(os.path.join('Artwork','Jump.png'))
     slide = pygame.image.load(os.path.join('Artwork','Slide.png'))
     fall = pygame.image.load(os.path.join('Artwork','Fall.png'))
-    jumpList = [12,12,12,12,12,12,0,0,0,0,0,0,0
-                -12,-12,-12,-12,-12,-12]
+    jumpList = [30,30,30,0,0,0,0,0,0,0,0,0
+                -30,-30,-30]
     def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
