@@ -14,8 +14,8 @@ class player(object):
     jump = pygame.image.load(os.path.join('Artwork','Jump.png'))
     slide = pygame.image.load(os.path.join('Artwork','Slide.png'))
     fall = pygame.image.load(os.path.join('Artwork','Fall.png'))
-    jumpList = [30,30,30,0,0,0,0,0,0,0,0
-                -30,-30,-30]
+    jumpList = [45,45,0,0,0,0,0,0,0,0,0,
+                0,-45,-45]
 
     def __init__(self, x, y, width, height):
         self.x = x
@@ -43,7 +43,7 @@ class player(object):
             self.y -= self.jumpList[self.jumpCount] * 1.2
             win.blit(self.jump, (self.x,self.y))
             self.jumpCount += 1
-            if self.jumpCount > 12:
+            if self.jumpCount > (len(self.jumpList) - 1):
                 self.jumpCount = 0
                 self.jumping = False
                 self.runCount = 0
@@ -132,7 +132,7 @@ class dog(bush1):
 
     def draw(self,win):
         win.blit(pygame.transform.scale(self.img,(75,45)), (self.x,self.y))
-        self.hitbox = (self.x + 5, self.y + 5, self.width - 10, self.height)
+        self.hitbox = (self.x + 5, self.y + 5, self.width - 20, self.height)
 
     def collide(self, rect): #for ground objects
         if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:

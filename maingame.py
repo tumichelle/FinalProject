@@ -59,6 +59,9 @@ def textRed(text, font):
     textStart = font.render(text, True, red)
     return textStart, textStart.get_rect()
 
+def textBlack(text, font):
+    textStart = font.render(text, True, black)
+    return textStart, textStart.get_rect()
 
 #quit game function
 def quit_game():
@@ -352,13 +355,13 @@ def levels_loop():
 
 
 def level1():
-    play(60,70)
+    play(30,35)
 
 def level2():
-    play(50,60)
+    play(25,30)
 
 def level3():
-    play(40,50)
+    play(20,25)
 
 
 def play(leva,levb):
@@ -497,6 +500,12 @@ def play(leva,levb):
         tick += 1
         time += 1
         redrawWindow()
+
+        TextSurf, TextRect = textBlack("DISTANCE LEFT: " + (str(510 - time)) + " M", nameText)
+        TextRect.center = ((130),(30))
+        game_display.blit(TextSurf, TextRect)
+        pygame.display.update()
+
         for objectt in objects:
             if objectt.collide(runner.hitbox):
                 runner.falling = True
@@ -504,8 +513,8 @@ def play(leva,levb):
                 if die == 0:
                     if lifenum == 1:
                         live1 = False
-                        losescreen()
                         time = 0
+                        losescreen()
                     elif lifenum == 2:
                         live2 = False
                     elif lifenum == 3:
@@ -514,18 +523,18 @@ def play(leva,levb):
                 elif die == 1:
                     if lifenum == 2:
                         live1 = False
-                        losescreen()
                         time = 0
+                        losescreen()
                     elif lifenum == 3:
                         live2 = False
                     die += 1
                 elif die == 2:
                     live1 = False
-                    losescreen()
                     time = 0
-            elif time >= 1000:
+                    losescreen()
+            elif time >= 500:
                 objects.pop(objects.index(objectt))
-            if time >= 1010:
+            if time >= 510:
                 finishscreen()
 
 
@@ -555,7 +564,7 @@ def play(leva,levb):
             if event.type == USEREVENT+1:
                 speed += 1
 
-        if (tick%(random.randint(leva,levb))) == 0:
+        if (tick % (random.randint(leva,levb))) == 0:
             r = random.randint(1,11)
             if r == 1:
                 objects.append(bush1(710,230,44,64))
