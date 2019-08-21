@@ -658,7 +658,11 @@ def play(leva,levb,hard):
             if not (runner.sliding):
                 runner.sliding = True
 
+<<<<<<< HEAD
         clock.tick(20)
+=======
+        clock.tick(12)
+>>>>>>> d439753c5bb9d8f2d02151c907c4465afc1b9026
 
 
 
