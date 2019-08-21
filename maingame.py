@@ -598,7 +598,7 @@ def play(leva,levb):
             if not (runner.sliding):
                 runner.sliding = True
 
-        clock.tick(15)
+        clock.tick(12)
 
 
 
