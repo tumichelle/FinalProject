@@ -86,7 +86,7 @@ class bush1(object):
 
     def draw(self,win):
         win.blit(pygame.transform.scale(self.img, (44,44)), (self.x, self.y))
-        self.hitbox = (self.x+2, self.y, self.width+10, self.height-10)
+        self.hitbox = (self.x+2, self.y, self.width, self.height-10)
 
     def collide(self, rect): #for ground objects
         if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:

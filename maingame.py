@@ -355,16 +355,19 @@ def levels_loop():
 
 
 def level1():
-    play(45,55)
+    play(40,50,1)
 
 def level2():
-    play(35,45)
+    play(35,45,2)
 
 def level3():
-    play(25,35)
+    play(30,35,3)
 
 
-def play(leva,levb):
+
+def play(leva,levb,hard):
+    points = []
+    lev = hard
     time = 0
     W, H = 700, 391
     win = pygame.display.set_mode((W,H))
@@ -496,6 +499,17 @@ def play(leva,levb):
     objects = []
     tick = 0
 
+    def winscreen():
+        run = True
+        win = pygame.image.load('WinScreen.png')
+        while run:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+                    pygame.quit()
+            win.blit(finish,[0,0])
+            pygame.display.update()
+
     while run:
         tick += 1
         time += 1
@@ -515,6 +529,12 @@ def play(leva,levb):
                         live1 = False
                         time = 0
                         losescreen()
+                        if lev == 1:
+                            points.append(-50)
+                        elif lev == 2:
+                            points.append(-100)
+                        elif lev == 3:
+                            points.append(-150)
                     elif lifenum == 2:
                         live2 = False
                     elif lifenum == 3:
@@ -525,6 +545,12 @@ def play(leva,levb):
                         live1 = False
                         time = 0
                         losescreen()
+                        if lev == 1:
+                            points.append(-50)
+                        elif lev == 2:
+                            points.append(-100)
+                        elif lev == 3:
+                            points.append(-150)
                     elif lifenum == 3:
                         live2 = False
                     die += 1
@@ -532,19 +558,30 @@ def play(leva,levb):
                     live1 = False
                     time = 0
                     losescreen()
+                    if lev == 1:
+                        points.append(-50)
+                    elif lev == 2:
+                        points.append(-100)
+                    elif lev == 3:
+                        points.append(-150)
                 else:
                     runner.falling = False
 
             elif time >= 500:
                 objects.pop(objects.index(objectt))
-        if time >= 510:
-            finishscreen()
-
-
 
             objectt.x -= 12
             if objectt.x < objectt.width * -1:
                 objects.pop(objects.index(objectt))
+
+        if time >= 510:
+            finishscreen()
+            if lev == 1:
+                points.append(100)
+            elif lev == 2:
+                points.append(200)
+            elif lev == 3:
+                points.append(300)
 
 
 
@@ -585,8 +622,31 @@ def play(leva,levb):
                 objects.append(firehydrant(710,230,55,65))
             tick = 0
 
-
-
+        if sum(points) >= 400:
+            winscreen()
+            if 300 in points:
+                points.remove(300)
+                if 100 in points:
+                    points.remove(100)
+                elif 200 in points:
+                    points.remove(200)
+                    points.append(100)
+                elif 300 in points:
+                    points.remove(300)
+                    points.append(200)
+            elif 200 in points:
+                points.remove(200)
+                if 200 in points:
+                    points.remove(200)
+                elif 100 in points:
+                    points.remove(100)
+                    points.remove(100)
+            elif 100 in points:
+                points.remove(100)
+                points.remove(100)
+                points.remove(100)
+                points.remove(100)
+            print(points)
 
         keys = pygame.key.get_pressed()
 
@@ -598,7 +658,7 @@ def play(leva,levb):
             if not (runner.sliding):
                 runner.sliding = True
 
-        clock.tick(15)
+        clock.tick(20)
 
 
 
