@@ -355,13 +355,13 @@ def levels_loop():
 
 
 def level1():
-    play(30,35)
+    play(45,55)
 
 def level2():
-    play(25,30)
+    play(35,45)
 
 def level3():
-    play(20,25)
+    play(25,35)
 
 
 def play(leva,levb):
@@ -501,7 +501,7 @@ def play(leva,levb):
         time += 1
         redrawWindow()
 
-        TextSurf, TextRect = textBlack("DISTANCE LEFT: " + (str(510 - time)) + " M", nameText)
+        TextSurf, TextRect = textBlack("DISTANCE LEFT: " + (str(int((510 - time)/5))) + " M", nameText)
         TextRect.center = ((130),(30))
         game_display.blit(TextSurf, TextRect)
         pygame.display.update()
@@ -532,14 +532,15 @@ def play(leva,levb):
                     live1 = False
                     time = 0
                     losescreen()
+                else:
+                    runner.falling = False
+
             elif time >= 500:
                 objects.pop(objects.index(objectt))
-            if time >= 510:
-                finishscreen()
+        if time >= 510:
+            finishscreen()
 
 
-            else:
-                runner.falling = False
 
             objectt.x -= 12
             if objectt.x < objectt.width * -1:
@@ -597,7 +598,7 @@ def play(leva,levb):
             if not (runner.sliding):
                 runner.sliding = True
 
-        clock.tick(speed)
+        clock.tick(15)
 
 
 
