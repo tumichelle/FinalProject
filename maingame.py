@@ -54,7 +54,7 @@ def button_draw(button, font):
     rect.center = button['rect'].center
     win.blit(image, rect)
 
-
+#characterizes the font
 def textWhite(text, font):
     textSurface = font.render(text, True, white)
     return textSurface, textSurface.get_rect()
@@ -401,16 +401,22 @@ def levels_loop():
 #starts level 1
 def level1():
     print(1)
+    f = open('levelsdata.txt','a')
+    f.write(repr(1))
     play(40,50,1)
 
 #starts level 2
 def level2():
     print(2)
+    f = open('levelsdata.txt','a')
+    f.write(repr(2))
     play(35,45,2)
 
 #starts level 3
 def level3():
     print(3)
+    f = open('levelsdata.txt','a')
+    f.write(repr(3))
     play(30,35,3)
 
 points = []
