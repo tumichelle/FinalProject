@@ -1,13 +1,8 @@
 import classDefs
 from classDefs import *
-import time
-import xlrd
-import pandas import ExcelWriter
 
 pygame.init()
 
-display_width = 700
-display_height = 391
 black = (0,0,0)
 white = (255, 255, 255)
 red = (255,0,0)
@@ -15,13 +10,13 @@ blue = (0,0,255)
 purple = (153,50,204)
 gray = (192,192,192)
 darkgray = (33,33,33)
+pygame.display.set_caption('Raising the Steaks')
 
 #music
 pygame.mixer.music.load('GameMusic.mp3')
 pygame.mixer.music.play(-1)
 
-game_display = pygame.display.set_mode((display_width,display_height))
-
+#sets font size
 largeText = pygame.font.SysFont("DisposableDroidBB.ttf", 50)
 mediumText = pygame.font.SysFont("DisposableDroidBB.ttf", 35)
 startText = pygame.font.SysFont("DisposableDroidBB.ttf", 75)
@@ -31,6 +26,10 @@ nameText = pygame.font.SysFont("DisposableDroidBB.ttf", 25)
 hugeText = pygame.font.SysFont("DisposableDroidBB.ttf", 100)
 
 mouse = pygame.mouse.get_pos()
+
+#sets window
+W, H = 700, 391
+win = pygame.display.set_mode((W,H))
 
 
 #checks if button is clicked, does action
@@ -49,11 +48,11 @@ def button_draw(button, font):
     else:
         color = button['ac']
 
-    pygame.draw.rect(game_display, color, button['rect'])
+    pygame.draw.rect(win, color, button['rect'])
 
     image, rect = textWhite(button['msg'], font)
     rect.center = button['rect'].center
-    game_display.blit(image, rect)
+    win.blit(image, rect)
 
 
 def textWhite(text, font):
@@ -81,25 +80,25 @@ def quit_game():
 def game_intro():
 
     background_image = pygame.image.load("SteakStart.png")
-    game_display.blit(background_image, [0, 0])
+    win.blit(background_image, [0, 0])
     TextSurf, TextRect = textWhite('RAISING THE', largeText)
     TextRect.center = ((350),(45))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
     TextSurf, TextRect = textWhite('STEAKS', steakText)
     TextRect.center = ((345),(180))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
     TextSurf, TextRect = textGray("TOTAL SCORE:", nameText)
     TextRect.center = ((630),(20))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
     TextSurf, TextRect = textGray(str(sum(points)) + " pts", mediumText)
     TextRect.center = ((630),(41))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
 
@@ -164,11 +163,11 @@ def game_intro():
 #instructions page with back button
 def instructions_loop():
     background_image = pygame.image.load("INTROANDABOUT.png")
-    game_display.blit(background_image, [0, 0])
+    win.blit(background_image, [0, 0])
 
     TextSurf, TextRect = textWhite('INSTRUCTIONS', largeText)
     TextRect.center = ((355),(73))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
     buttons = [
@@ -184,35 +183,35 @@ def instructions_loop():
     #Instructional Text, Brought to you by AJ
     TextSurf, TextRect = textWhite("OBJECTIVE: GATHER 400 POINTS TO 'RAISE THE STEAKS'", smallText)
     TextRect.center = ((270),(140))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("AVOID THE OBSTACLES USING THE UP AND DOWN ARROW KEYS", smallText)
     TextRect.center = ((270),(170))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("            WIN        LOSE", smallText)
     TextRect.center = ((270),(205))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("LEVEL 1  +100pts   -50pts", smallText)
     TextRect.center = ((270),(230))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite(" LEVEL 2  +200pts   -100pts", smallText)
     TextRect.center = ((270),(260))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite(" LEVEL 3  +300pts   -150pts", smallText)
     TextRect.center = ((270),(290))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("PLOT TWIST: THE NUMBER OF LIVES YOU GET IS RANDOMIZED ", smallText)
     TextRect.center = ((270),(325))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("GOOD LUCK RAISING THE STEAKS! ", mediumText)
     TextRect.center = ((270),(360))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
     while True:
@@ -228,11 +227,11 @@ def instructions_loop():
 #about page with back button
 def about_loop():
     background_image = pygame.image.load("THEMOTHERFRICKINGINTROANDABOUT.png")
-    game_display.blit(background_image, [0, 0])
+    win.blit(background_image, [0, 0])
 
     TextSurf, TextRect = textWhite('ABOUT', largeText)
     TextRect.center = ((352),(73))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
     buttons = [
@@ -247,78 +246,78 @@ def about_loop():
 
 #michelle's bio
     michelle = pygame.image.load("michelle.jpeg")
-    game_display.blit(michelle, (20,130))
+    win.blit(michelle, (20,130))
     TextSurf, TextRect = textWhite("MICHELLE TU", nameText)
     TextRect.center = ((210),(140))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("GRADE 12", smallText)
     TextRect.center = ((210),(180))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("LEXINGTON", smallText)
     TextRect.center = ((210),(200))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("HIGH SCHOOL", smallText)
     TextRect.center = ((210),(220))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
 #leia's bio
     leia = pygame.image.load("aj.jpeg")
-    game_display.blit(leia, (300,130))
+    win.blit(leia, (300,130))
     TextSurf, TextRect = textWhite("AJ CHAU", nameText)
     TextRect.center = ((500),(140))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("GRADE 11", smallText)
     TextRect.center = ((500),(180))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("ALUM OF SOULE", smallText)
     TextRect.center = ((500),(200))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("EARLY CHILDHOOD CENTER", smallText)
     TextRect.center = ((510),(220))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
 #ellie's bio
     ellie = pygame.image.load("ellie.jpeg")
-    game_display.blit(ellie, (20,270))
+    win.blit(ellie, (20,270))
     TextSurf, TextRect = textWhite("ELLIE", nameText)
     TextRect.center = ((210),(290))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("KLIBANER-SCHIFF", nameText)
     TextRect.center = ((210),(310))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("GRADE 11", smallText)
     TextRect.center = ((210),(340))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("MAIMONIDES", smallText)
     TextRect.center = ((210),(360))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
 #aj's bio
     aj = pygame.image.load("leia.jpeg")
-    game_display.blit(aj, (300,270))
+    win.blit(aj, (300,270))
     TextSurf, TextRect = textWhite("LEIA PAYANO", nameText)
     TextRect.center = ((480),(290))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("GRADE 12", smallText)
     TextRect.center = ((480),(330))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
     TextSurf, TextRect = textWhite("KIPP ACADEMY", smallText)
     TextRect.center = ((480),(350))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
     while True:
@@ -334,21 +333,21 @@ def about_loop():
 #levels page after pressing start button
 def levels_loop():
     background_image = pygame.image.load("MichellePleaseStop.png")
-    game_display.blit(background_image, [0, 0])
+    win.blit(background_image, [0, 0])
 
     TextSurf, TextRect = textWhite('CHOOSE A DIFFICULTY', largeText)
     TextRect.center = ((355),(73))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
     TextSurf, TextRect = textGray("TOTAL SCORE:", mediumText)
     TextRect.center = ((560),(180))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
     TextSurf, TextRect = textGray(str(sum(points)) + " pts", largeText)
     TextRect.center = ((560),(220))
-    game_display.blit(TextSurf, TextRect)
+    win.blit(TextSurf, TextRect)
     pygame.display.update()
 
 
@@ -402,7 +401,6 @@ def levels_loop():
 #starts level 1
 def level1():
     print(1)
-
     play(40,50,1)
 
 #starts level 2
@@ -450,18 +448,15 @@ def winscreen():
 
         TextSurf, TextRect = textBlack("YOU", hugeText)
         TextRect.center = ((150),(260))
-        game_display.blit(TextSurf, TextRect)
+        win.blit(TextSurf, TextRect)
         pygame.display.update()
 
         TextSurf, TextRect = textBlack("WIN!", hugeText)
         TextRect.center = ((550),(260))
-        game_display.blit(TextSurf, TextRect)
+        win.blit(TextSurf, TextRect)
         pygame.display.update()
 
-#sets window
-W, H = 700, 391
-win = pygame.display.set_mode((W,H))
-
+lives = pygame.image.load('lives.png')
 #contains entire game
 def play(leva,levb,hard):
 
@@ -469,26 +464,12 @@ def play(leva,levb,hard):
     global points
     lev = hard
     time = 0
-    pygame.display.set_caption('Raising the Steaks')
 
     #sets up background
     bg = pygame.image.load('GameBackground.png').convert()
     bgX = 0
     bgX2 = bg.get_width()
     clock = pygame.time.Clock()
-    lives = pygame.image.load('lives.png')
-
-    #right-most heart
-    def life1():
-        win.blit(pygame.transform.scale(lives, (30,30)), (84,12))
-
-    #middle heart
-    def life2():
-        win.blit(pygame.transform.scale(lives, (30,30)), (124,12))
-
-    #left-most heart
-    def life3():
-        win.blit(pygame.transform.scale(lives, (30,30)), (164,12))
 
     #makes background show up/scroll and character and hearts show
     def redrawWindow():
@@ -496,12 +477,12 @@ def play(leva,levb,hard):
         win.blit(bg, (bgX2,0))
         if lifenum == 1:
             if live1 == True:
-                life1()
+                win.blit(pygame.transform.scale(lives, (30,30)), (84,12))
         elif lifenum == 2:
             if live1 == True:
-                life1()
+                win.blit(pygame.transform.scale(lives, (30,30)), (124,12))
             if live2 == True:
-                life2()
+                win.blit(pygame.transform.scale(lives, (30,30)), (164,12))
         elif lifenum == 3:
             if live1 == True:
                 life1()
@@ -514,15 +495,15 @@ def play(leva,levb,hard):
                 x.draw(win)
         TextSurf, TextRect = textBlack("DISTANCE LEFT: " + (str(int((502 - time)/5))) + " M", nameText)
         TextRect.center = ((570,30))
-        game_display.blit(TextSurf, TextRect)
+        win.blit(TextSurf, TextRect)
 
         TextSurf, TextRect = textBlack("LEVEL " + str(lev), mediumText)
         TextRect.center = ((350),(30))
-        game_display.blit(TextSurf, TextRect)
+        win.blit(TextSurf, TextRect)
 
         TextSurf, TextRect = textBlack("LIVES: ", nameText)
         TextRect.center = ((50),(30))
-        game_display.blit(TextSurf, TextRect)
+        win.blit(TextSurf, TextRect)
         pygame.display.update()
 
     #losescreen
@@ -572,22 +553,22 @@ def play(leva,levb,hard):
             while True:
                 TextSurf, TextRect = textWhite("YOU LOSE", hugeText)
                 TextRect.center = ((350),(140))
-                game_display.blit(TextSurf, TextRect)
+                win.blit(TextSurf, TextRect)
                 pygame.display.update()
 
                 TextSurf, TextRect = textGray("TOTAL SCORE:", nameText)
                 TextRect.center = ((630),(20))
-                game_display.blit(TextSurf, TextRect)
+                win.blit(TextSurf, TextRect)
                 pygame.display.update()
 
                 TextSurf, TextRect = textGray(str(sum(points)) + " pts", mediumText)
                 TextRect.center = ((630),(41))
-                game_display.blit(TextSurf, TextRect)
+                win.blit(TextSurf, TextRect)
                 pygame.display.update()
 
                 TextSurf, TextRect = textWhite((str(minus) + " pts"), steakText)
                 TextRect.center = ((350),(240))
-                game_display.blit(TextSurf, TextRect)
+                win.blit(TextSurf, TextRect)
                 pygame.display.update()
 
 
@@ -606,7 +587,7 @@ def play(leva,levb,hard):
     def finishscreen():
         run = True
         finish = pygame.image.load('completelevel.png')
-        game_display.blit(finish, [0,0])
+        win.blit(finish, [0,0])
         pygame.display.update()
         if hard == 1:
             plus = (100)
@@ -641,32 +622,32 @@ def play(leva,levb,hard):
             while True:
                 TextSurf, TextRect = textBlack("GREAT WORK!", startText)
                 TextRect.center = ((350),(40))
-                game_display.blit(TextSurf, TextRect)
+                win.blit(TextSurf, TextRect)
                 pygame.display.update()
 
                 TextSurf, TextRect = textBlack("KEEP PLAYING TO RAISE THE STEAKS", mediumText)
                 TextRect.center = ((350),(115))
-                game_display.blit(TextSurf, TextRect)
+                win.blit(TextSurf, TextRect)
                 pygame.display.update()
 
                 TextSurf, TextRect = textBlack("BY WINNING 400pts", mediumText)
                 TextRect.center = ((350),(170))
-                game_display.blit(TextSurf, TextRect)
+                win.blit(TextSurf, TextRect)
                 pygame.display.update()
 
                 TextSurf, TextRect = textBlack("TOTAL SCORE:", mediumText)
                 TextRect.center = ((350),(300))
-                game_display.blit(TextSurf, TextRect)
+                win.blit(TextSurf, TextRect)
                 pygame.display.update()
 
                 TextSurf, TextRect = textBlack(str(sum(points)) + " pts", largeText)
                 TextRect.center = ((350),(340))
-                game_display.blit(TextSurf, TextRect)
+                win.blit(TextSurf, TextRect)
                 pygame.display.update()
 
                 TextSurf, TextRect = textGray(("+" + str(plus) + " pts"), mediumText)
                 TextRect.center = ((350),(220))
-                game_display.blit(TextSurf, TextRect)
+                win.blit(TextSurf, TextRect)
                 pygame.display.update()
 
                 for event in pygame.event.get():
@@ -829,6 +810,6 @@ def play(leva,levb,hard):
 
 pygame.init()
 
-game_display_rect = game_display.get_rect()
+win_rect = win.get_rect()
 
 game_intro()
