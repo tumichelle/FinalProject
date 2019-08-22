@@ -415,7 +415,9 @@ def level3():
 points = []
 
 def zero():
-    points = []
+    points.clear()
+    game_intro()
+
 
 #winscreen
 def winscreen():
@@ -511,7 +513,7 @@ def play(leva,levb,hard):
         TextRect.center = ((570,30))
         game_display.blit(TextSurf, TextRect)
 
-        TextSurf, TextRect = textBlack("LEVEL " + str(hard), mediumText)
+        TextSurf, TextRect = textBlack("LEVEL " + str(lev), mediumText)
         TextRect.center = ((350),(30))
         game_display.blit(TextSurf, TextRect)
 
@@ -532,12 +534,12 @@ def play(leva,levb,hard):
         speed = 30
         run = True
         lose = pygame.image.load('LoseScreen.png')
-        if hard == 1:
+        if lev == 1:
             minus = (-50)
-        elif hard == 2:
+        elif lev == 2:
             minus = (-100)
-        elif hard ==3:
-            hard == (-150)
+        elif lev == 3:
+            minus = (-150)
 
         buttons = [
             {
