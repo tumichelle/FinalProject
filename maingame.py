@@ -1,13 +1,15 @@
 import classDefs
 from classDefs import *
 import time
-import xlrd
-import pandas import ExcelWriter
+import csv
 
 pygame.init()
 
+#display size
 display_width = 700
 display_height = 391
+
+#define colors
 black = (0,0,0)
 white = (255, 255, 255)
 red = (255,0,0)
@@ -20,8 +22,10 @@ darkgray = (33,33,33)
 pygame.mixer.music.load('GameMusic.mp3')
 pygame.mixer.music.play(-1)
 
+#display screen
 game_display = pygame.display.set_mode((display_width,display_height))
 
+#define fonts
 largeText = pygame.font.SysFont("DisposableDroidBB.ttf", 50)
 mediumText = pygame.font.SysFont("DisposableDroidBB.ttf", 35)
 startText = pygame.font.SysFont("DisposableDroidBB.ttf", 75)
@@ -55,7 +59,7 @@ def button_draw(button, font):
     rect.center = button['rect'].center
     game_display.blit(image, rect)
 
-
+#characterizes the font
 def textWhite(text, font):
     textSurface = font.render(text, True, white)
     return textSurface, textSurface.get_rect()
@@ -402,17 +406,22 @@ def levels_loop():
 #starts level 1
 def level1():
     print(1)
-
+    f = open('levelsdata.txt','a')
+    f.write(repr(1))
     play(40,50,1)
 
 #starts level 2
 def level2():
     print(2)
+    f = open('levelsdata.txt','a')
+    f.write(repr(2))
     play(35,45,2)
 
 #starts level 3
 def level3():
     print(3)
+    f = open('levelsdata.txt','a')
+    f.write(repr(3))
     play(30,35,3)
 
 points = []
