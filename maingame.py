@@ -1,6 +1,8 @@
 import classDefs
 from classDefs import *
 import time
+import xlrd
+import pandas import ExcelWriter
 
 pygame.init()
 
@@ -161,7 +163,7 @@ def game_intro():
 
 #instructions page with back button
 def instructions_loop():
-    background_image = pygame.image.load("THEMOTHERFRICKINGINTROANDABOUT.png")
+    background_image = pygame.image.load("INTROANDABOUT.png")
     game_display.blit(background_image, [0, 0])
 
     TextSurf, TextRect = textWhite('INSTRUCTIONS', largeText)
@@ -400,6 +402,7 @@ def levels_loop():
 #starts level 1
 def level1():
     print(1)
+
     play(40,50,1)
 
 #starts level 2
