@@ -226,7 +226,7 @@ def instructions_loop():
 
 #about page with back button
 def about_loop():
-    background_image = pygame.image.load("THEMOTHERFRICKINGINTROANDABOUT.png")
+    background_image = pygame.image.load("INTROANDABOUT.png")
     win.blit(background_image, [0, 0])
 
     TextSurf, TextRect = textWhite('ABOUT', largeText)
@@ -400,21 +400,18 @@ def levels_loop():
 
 #starts level 1
 def level1():
-    print(1)
     f = open('levelsdata.txt','a')
     f.write(repr(1))
     play(40,50,1)
 
 #starts level 2
 def level2():
-    print(2)
     f = open('levelsdata.txt','a')
     f.write(repr(2))
     play(35,45,2)
 
 #starts level 3
 def level3():
-    print(3)
     f = open('levelsdata.txt','a')
     f.write(repr(3))
     play(30,35,3)
@@ -463,209 +460,207 @@ def winscreen():
         pygame.display.update()
 
 lives = pygame.image.load('lives.png')
+def redrawWindow(lifenum, live1, live2, live3, runner, objects, time, hard):
+    win.blit(bg, (bgX, 0))
+    win.blit(bg, (bgX2,0))
+    if lifenum == 1:
+        if live1 == True:
+            win.blit(pygame.transform.scale(lives, (30,30)), (84,12))
+    elif lifenum == 2:
+        if live1 == True:
+            win.blit(pygame.transform.scale(lives, (30,30)), (84,12))
+        if live2 == True:
+            win.blit(pygame.transform.scale(lives, (30,30)), (124,12))
+    elif lifenum == 3:
+        if live1 == True:
+            win.blit(pygame.transform.scale(lives, (30,30)), (84,12))
+        if live2 == True:
+            win.blit(pygame.transform.scale(lives, (30,30)), (124,12))
+        if live3 == True:
+            win.blit(pygame.transform.scale(lives, (30,30)), (164,12))
+    runner.draw(win)
+    for x in objects:
+            x.draw(win)
+    TextSurf, TextRect = textBlack("DISTANCE LEFT: " + (str(int((502 - time)/5))) + " M", nameText)
+    TextRect.center = ((570,30))
+    win.blit(TextSurf, TextRect)
+
+    TextSurf, TextRect = textBlack("LEVEL " + str(hard), mediumText)
+    TextRect.center = ((350),(30))
+    win.blit(TextSurf, TextRect)
+
+    TextSurf, TextRect = textBlack("LIVES: ", nameText)
+    TextRect.center = ((50),(30))
+    win.blit(TextSurf, TextRect)
+    pygame.display.update()
+
+#losescreen
+def losescreen(hard):
+    global lifenum, die, live1, live2, live3, objects, speed, lose
+    lifenum = random.randint(1,3)
+    die = 0
+    live1 = True
+    live2 = True
+    live3 = True
+    objects = []
+    speed = 30
+    run = True
+    lose = pygame.image.load('LoseScreen.png')
+    if hard== 1:
+        minus = (-50)
+    elif hard== 2:
+        minus = (-100)
+    elif hard== 3:
+        minus = (-150)
+
+    buttons = [
+        {
+            'msg': 'REPLAY',
+            'rect': pygame.Rect(480, 318, 140, 40),
+            'ac': black,
+            'ic': red,
+            'action': levels_loop,
+        },
+        {
+            'msg': 'MAIN MENU',
+            'rect': pygame.Rect(50, 318, 180, 40),
+            'ac': black,
+            'ic': red,
+            'action': game_intro,
+        }
+        ]
+
+
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                pygame.quit()
+        win.blit(lose, [0,0])
+        pygame.display.update()
+        while True:
+            TextSurf, TextRect = textWhite("YOU LOSE", hugeText)
+            TextRect.center = ((350),(140))
+            win.blit(TextSurf, TextRect)
+            pygame.display.update()
+
+            TextSurf, TextRect = textGray("TOTAL SCORE:", nameText)
+            TextRect.center = ((630),(20))
+            win.blit(TextSurf, TextRect)
+            pygame.display.update()
+
+            TextSurf, TextRect = textGray(str(sum(points)) + " pts", mediumText)
+            TextRect.center = ((630),(41))
+            win.blit(TextSurf, TextRect)
+            pygame.display.update()
+
+            TextSurf, TextRect = textWhite((str(minus) + " pts"), steakText)
+            TextRect.center = ((350),(240))
+            win.blit(TextSurf, TextRect)
+            pygame.display.update()
+
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    quit_game()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    button_check(buttons[0])
+                    button_check(buttons[1])
+
+            button_draw(buttons[0], mediumText)
+            button_draw(buttons[1], mediumText)
+            pygame.display.update()
+
+#finishscreen
+def finishscreen(hard):
+    run = True
+    finish = pygame.image.load('completelevel.png')
+    win.blit(finish, [0,0])
+    pygame.display.update()
+    if hard == 1:
+        plus = (100)
+    elif hard == 2:
+        plus = (200)
+    elif hard == 3:
+        plus = (300)
+
+    buttons = [
+        {
+            'msg': 'REPLAY',
+            'rect': pygame.Rect(534, 306, 130, 50),
+            'ac': black,
+            'ic': purple,
+            'action': levels_loop,
+        },
+        {
+            'msg': 'MAIN MENU',
+            'rect': pygame.Rect(22, 305, 158, 50),
+            'ac': black,
+            'ic': purple,
+            'action': game_intro,
+        }
+        ]
+
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                pygame.quit()
+
+        while True:
+            TextSurf, TextRect = textBlack("GREAT WORK!", startText)
+            TextRect.center = ((350),(40))
+            win.blit(TextSurf, TextRect)
+            pygame.display.update()
+
+            TextSurf, TextRect = textBlack("KEEP PLAYING TO RAISE THE STEAKS", mediumText)
+            TextRect.center = ((350),(115))
+            win.blit(TextSurf, TextRect)
+            pygame.display.update()
+
+            TextSurf, TextRect = textBlack("BY WINNING 400pts", mediumText)
+            TextRect.center = ((350),(170))
+            win.blit(TextSurf, TextRect)
+            pygame.display.update()
+
+            TextSurf, TextRect = textBlack("TOTAL SCORE:", mediumText)
+            TextRect.center = ((350),(300))
+            win.blit(TextSurf, TextRect)
+            pygame.display.update()
+
+            TextSurf, TextRect = textBlack(str(sum(points)) + " pts", largeText)
+            TextRect.center = ((350),(340))
+            win.blit(TextSurf, TextRect)
+            pygame.display.update()
+
+            TextSurf, TextRect = textGray(("+" + str(plus) + " pts"), mediumText)
+            TextRect.center = ((350),(220))
+            win.blit(TextSurf, TextRect)
+            pygame.display.update()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    quit_game()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    button_check(buttons[0])
+                    button_check(buttons[1])
+
+            button_draw(buttons[0], mediumText)
+            button_draw(buttons[1], mediumText)
+            pygame.display.update()
+
+#sets up background
+bg = pygame.image.load('GameBackground.png').convert()
+bgX = 0
+bgX2 = bg.get_width()
+clock = pygame.time.Clock()
+
 #contains entire game
 def play(leva,levb,hard):
 
     #some nice random variables to set everything up
-    global points
-    lev = hard
+    global points, bgX, bgX2
     time = 0
-
-    #sets up background
-    bg = pygame.image.load('GameBackground.png').convert()
-    bgX = 0
-    bgX2 = bg.get_width()
-    clock = pygame.time.Clock()
-
-    #makes background show up/scroll and character and hearts show
-    def redrawWindow():
-        win.blit(bg, (bgX, 0))
-        win.blit(bg, (bgX2,0))
-        if lifenum == 1:
-            if live1 == True:
-                win.blit(pygame.transform.scale(lives, (30,30)), (84,12))
-        elif lifenum == 2:
-            if live1 == True:
-                win.blit(pygame.transform.scale(lives, (30,30)), (124,12))
-            if live2 == True:
-                win.blit(pygame.transform.scale(lives, (30,30)), (164,12))
-        elif lifenum == 3:
-            if live1 == True:
-                life1()
-            if live2 == True:
-                life2()
-            if live3 == True:
-                life3()
-        runner.draw(win)
-        for x in objects:
-                x.draw(win)
-        TextSurf, TextRect = textBlack("DISTANCE LEFT: " + (str(int((502 - time)/5))) + " M", nameText)
-        TextRect.center = ((570,30))
-        win.blit(TextSurf, TextRect)
-
-        TextSurf, TextRect = textBlack("LEVEL " + str(lev), mediumText)
-        TextRect.center = ((350),(30))
-        win.blit(TextSurf, TextRect)
-
-        TextSurf, TextRect = textBlack("LIVES: ", nameText)
-        TextRect.center = ((50),(30))
-        win.blit(TextSurf, TextRect)
-        pygame.display.update()
-
-    #losescreen
-    def losescreen():
-        global lifenum, die, live1, live2, live3, objects, speed, lose
-        lifenum = random.randint(1,3)
-        die = 0
-        live1 = True
-        live2 = True
-        live3 = True
-        objects = []
-        speed = 30
-        run = True
-        lose = pygame.image.load('LoseScreen.png')
-        if lev == 1:
-            minus = (-50)
-        elif lev == 2:
-            minus = (-100)
-        elif lev == 3:
-            minus = (-150)
-
-        buttons = [
-            {
-                'msg': 'REPLAY',
-                'rect': pygame.Rect(480, 318, 140, 40),
-                'ac': black,
-                'ic': red,
-                'action': levels_loop,
-            },
-            {
-                'msg': 'MAIN MENU',
-                'rect': pygame.Rect(50, 318, 180, 40),
-                'ac': black,
-                'ic': red,
-                'action': game_intro,
-            }
-            ]
-
-
-        while run:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    run = False
-                    pygame.quit()
-            win.blit(lose, [0,0])
-            pygame.display.update()
-            while True:
-                TextSurf, TextRect = textWhite("YOU LOSE", hugeText)
-                TextRect.center = ((350),(140))
-                win.blit(TextSurf, TextRect)
-                pygame.display.update()
-
-                TextSurf, TextRect = textGray("TOTAL SCORE:", nameText)
-                TextRect.center = ((630),(20))
-                win.blit(TextSurf, TextRect)
-                pygame.display.update()
-
-                TextSurf, TextRect = textGray(str(sum(points)) + " pts", mediumText)
-                TextRect.center = ((630),(41))
-                win.blit(TextSurf, TextRect)
-                pygame.display.update()
-
-                TextSurf, TextRect = textWhite((str(minus) + " pts"), steakText)
-                TextRect.center = ((350),(240))
-                win.blit(TextSurf, TextRect)
-                pygame.display.update()
-
-
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        quit_game()
-                    elif event.type == pygame.MOUSEBUTTONDOWN:
-                        button_check(buttons[0])
-                        button_check(buttons[1])
-
-                button_draw(buttons[0], mediumText)
-                button_draw(buttons[1], mediumText)
-                pygame.display.update()
-
-    #finishscreen
-    def finishscreen():
-        run = True
-        finish = pygame.image.load('completelevel.png')
-        win.blit(finish, [0,0])
-        pygame.display.update()
-        if hard == 1:
-            plus = (100)
-        elif hard == 2:
-            plus = (200)
-        elif hard == 3:
-            plus = (300)
-
-        buttons = [
-            {
-                'msg': 'REPLAY',
-                'rect': pygame.Rect(534, 306, 130, 50),
-                'ac': black,
-                'ic': purple,
-                'action': levels_loop,
-            },
-            {
-                'msg': 'MAIN MENU',
-                'rect': pygame.Rect(22, 305, 158, 50),
-                'ac': black,
-                'ic': purple,
-                'action': game_intro,
-            }
-            ]
-
-        while run:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    run = False
-                    pygame.quit()
-
-            while True:
-                TextSurf, TextRect = textBlack("GREAT WORK!", startText)
-                TextRect.center = ((350),(40))
-                win.blit(TextSurf, TextRect)
-                pygame.display.update()
-
-                TextSurf, TextRect = textBlack("KEEP PLAYING TO RAISE THE STEAKS", mediumText)
-                TextRect.center = ((350),(115))
-                win.blit(TextSurf, TextRect)
-                pygame.display.update()
-
-                TextSurf, TextRect = textBlack("BY WINNING 400pts", mediumText)
-                TextRect.center = ((350),(170))
-                win.blit(TextSurf, TextRect)
-                pygame.display.update()
-
-                TextSurf, TextRect = textBlack("TOTAL SCORE:", mediumText)
-                TextRect.center = ((350),(300))
-                win.blit(TextSurf, TextRect)
-                pygame.display.update()
-
-                TextSurf, TextRect = textBlack(str(sum(points)) + " pts", largeText)
-                TextRect.center = ((350),(340))
-                win.blit(TextSurf, TextRect)
-                pygame.display.update()
-
-                TextSurf, TextRect = textGray(("+" + str(plus) + " pts"), mediumText)
-                TextRect.center = ((350),(220))
-                win.blit(TextSurf, TextRect)
-                pygame.display.update()
-
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        quit_game()
-                    elif event.type == pygame.MOUSEBUTTONDOWN:
-                        button_check(buttons[0])
-                        button_check(buttons[1])
-
-                button_draw(buttons[0], mediumText)
-                button_draw(buttons[1], mediumText)
-                pygame.display.update()
 
     #some more fun random variables to make the code work
     runner = player(200, 160, 63, 111)
@@ -684,7 +679,7 @@ def play(leva,levb,hard):
     while run:
         tick += 1
         time += 1
-        redrawWindow()
+        redrawWindow(lifenum, live1, live2, live3, runner, objects, time, hard)
 
         #checks if objects are colliding or if dude is out of lives, takes away
         #points and calls the losescreen if the guy is dead
@@ -696,13 +691,13 @@ def play(leva,levb,hard):
                     if lifenum == 1:
                         live1 = False
                         time = 0
-                        if lev == 1:
+                        if hard== 1:
                             points.append(-50)
-                        elif lev == 2:
+                        elif hard== 2:
                             points.append(-100)
-                        elif lev == 3:
+                        elif hard== 3:
                             points.append(-150)
-                        losescreen()
+                        losescreen(hard)
                     elif lifenum == 2:
                         live2 = False
                     elif lifenum == 3:
@@ -712,26 +707,26 @@ def play(leva,levb,hard):
                     if lifenum == 2:
                         live1 = False
                         time = 0
-                        if lev == 1:
+                        if hard== 1:
                             points.append(-50)
-                        elif lev == 2:
+                        elif hard== 2:
                             points.append(-100)
-                        elif lev == 3:
+                        elif hard== 3:
                             points.append(-150)
-                        losescreen()
+                        losescreen(hard)
                     elif lifenum == 3:
                         live2 = False
                     die += 1
                 elif die == 2:
                     live1 = False
                     time = 0
-                    if lev == 1:
+                    if hard== 1:
                         points.append(-50)
-                    elif lev == 2:
+                    elif hard== 2:
                         points.append(-100)
-                    elif lev == 3:
+                    elif hard== 3:
                         points.append(-150)
-                    losescreen()
+                    losescreen(hard)
                 else:
                     runner.falling = False
 
@@ -746,14 +741,14 @@ def play(leva,levb,hard):
 
         #ends game, gives points, calls finish screen or win screen
         if time >= 502:
-            if lev == 1:
+            if hard== 1:
                 points.append(100)
-            elif lev == 2:
+            elif hard== 2:
                 points.append(200)
-            elif lev == 3:
+            elif hard== 3:
                 points.append(300)
             if sum(points) < 400:
-                finishscreen()
+                finishscreen(hard)
             else:
                 winscreen()
 
