@@ -1,6 +1,7 @@
 import classDefs
 from classDefs import *
 
+
 pygame.init()
 
 black = (0,0,0)
@@ -803,8 +804,6 @@ def play(leva,levb,hard):
 
         #sets speed
         clock.tick(20)
-
-
 
 
 # --- main ---
