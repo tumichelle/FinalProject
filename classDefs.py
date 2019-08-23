@@ -7,13 +7,13 @@ import time
 import random
 
 class player(object):
-    run = [pygame.image.load(os.path.join('Artwork','RunLeft.png')),
-        pygame.image.load(os.path.join('Artwork','RunLeft.png')),
-        pygame.image.load(os.path.join('Artwork','RunRight.png')),
-        pygame.image.load(os.path.join('Artwork','RunRight.png')),]
-    jump = pygame.image.load(os.path.join('Artwork','Jump.png'))
-    slide = pygame.image.load(os.path.join('Artwork','Slide.png'))
-    fall = pygame.image.load(os.path.join('Artwork','Fall.png'))
+    run = [pygame.image.load('RunLeft.png'),
+        pygame.image.load('RunLeft.png'),
+        pygame.image.load('RunRight.png'),
+        pygame.image.load('RunRight.png'),]
+    jump = pygame.image.load('Jump.png')
+    slide = pygame.image.load('Slide.png')
+    fall = pygame.image.load('Fall.png')
     jumpList = [45,45,0,0,0,0,0,0,0,0,0,
                 0,-45,-45]
 
@@ -75,7 +75,7 @@ class player(object):
 
 
 class bush1(object):
-    img = (pygame.image.load(os.path.join('Artwork','Bush1.png')))
+    img = (pygame.image.load('Bush1.png'))
 
     def __init__(self, x, y, width, height):
         self.x = x
@@ -95,7 +95,7 @@ class bush1(object):
         return False
 
 class firehydrant(bush1):
-    img = (pygame.image.load(os.path.join('Artwork','FireHydrant.png')))
+    img = (pygame.image.load('FireHydrant.png'))
 
     def __init__(self, x, y, width, height):
         self.x = x
@@ -115,7 +115,7 @@ class firehydrant(bush1):
         return False
 
 class bush2(bush1):
-    img = (pygame.image.load(os.path.join('Artwork','Bush2.png')))
+    img = (pygame.image.load('Bush2.png'))
 
     def draw(self,win):
         win.blit(pygame.transform.scale(self.img, (70,55)), (self.x,self.y))
@@ -128,7 +128,7 @@ class bush2(bush1):
         return False
 
 class dog(bush1):
-    img = (pygame.image.load(os.path.join('Artwork','Dog.png')))
+    img = (pygame.image.load('Dog.png'))
 
     def draw(self,win):
         win.blit(pygame.transform.scale(self.img,(75,45)), (self.x,self.y))
@@ -141,7 +141,7 @@ class dog(bush1):
         return False
 
 class trashcan(bush1):
-    img = (pygame.image.load(os.path.join('Artwork','TrashCan.png')))
+    img = (pygame.image.load('TrashCan.png'))
 
     def draw(self,win):
         win.blit(pygame.transform.scale(self.img,(50,60)), (self.x,self.y))
@@ -154,7 +154,7 @@ class trashcan(bush1):
         return False
 
 class birds1(bush1):
-    img = (pygame.image.load(os.path.join('Artwork','Birds1.png')))
+    img = (pygame.image.load('Birds1.png'))
 
     def draw(self,win):
         win.blit(self.img, (self.x,self.y))
@@ -167,7 +167,7 @@ class birds1(bush1):
         return False
 
 class birds2(bush1):
-    img = (pygame.image.load(os.path.join('Artwork','Birds2.png')))
+    img = (pygame.image.load('Birds2.png'))
 
     def draw(self,win):
         win.blit(self.img, (self.x,self.y))
@@ -180,7 +180,7 @@ class birds2(bush1):
         return False
 
 class birds3(bush1):
-    img = (pygame.image.load(os.path.join('Artwork','Birds3.png')))
+    img = (pygame.image.load('Birds3.png'))
 
     def draw(self,win):
         win.blit(self.img, (self.x,self.y))
